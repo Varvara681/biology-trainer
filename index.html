@@ -4,10 +4,212 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Тренажёр</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f3f4f6;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .card {
+        background: white;
+        padding: 30px;
+        border-radius: 16px;
+        width: 360px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        text-align: center;
+      }
+
+      h2 {
+        margin: 0 0 18px 0;
+      }
+
+      .btn {
+        display: block;
+        width: 100%;
+        margin-top: 14px;
+        padding: 12px;
+        border-radius: 10px;
+        border: none;
+        background: #4f46e5;
+        color: white;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      .btn.secondary {
+        background: #111827;
+      }
+
+      .question {
+        font-size: 18px;
+        margin: 16px 0;
+      }
+
+      .answers {
+        display: grid;
+        gap: 10px;
+        margin-top: 16px;
+        text-align: left;
+      }
+
+      .answer {
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 12px;
+        cursor: pointer;
+        user-select: none;
+      }
+
+      .answer:hover {
+        background: #f9fafb;
+      }
+
+      .answer.correct {
+        border-color: #16a34a;
+        background: #dcfce7;
+      }
+
+      .answer.wrong {
+        border-color: #dc2626;
+        background: #fee2e2;
+      }
+
+      .muted {
+        color: #6b7280;
+        font-size: 14px;
+        margin-top: 10px;
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div class="card" id="app"></div>
 
-    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      const topics = ["Ботаника", "Зоология", "Анатомия"];
+
+      // Пока пример: 1 вопрос на тему (потом расширим до твоего контента)
+      const questionsByTopic = {
+        "Ботаника": {
+          question: "Что относится к растениям?",
+          answers: ["Гриб", "Сосна", "Амёба", "Кит"],
+          correctIndex: 1
+        },
+        "Зоология": {
+          question: "Кто из них млекопитающее?",
+          answers: ["Лягушка", "Акула", "Дельфин", "Курица"],
+          correctIndex: 2
+        },
+        "Анатомия": {
+          question: "Какой орган перекачивает кровь?",
+          answers: ["Печень", "Сердце", "Желудок", "Почки"],
+          correctIndex: 1
+        }
+      };
+
+      const state = {
+        screen: "home", // home | test | result
+        topic: null,
+        picked: null,
+        isCorrect: null
+      };
+
+      const app = document.getElementById("app");
+
+      function renderHome() {
+        app.innerHTML = `
+          <h2>Выберите тему</h2>
+          ${topics.map(t => `<button class="btn" data-topic="${t}">${t}</button>`).join("")}
+          <div class="muted">Пока 1 вопрос на тему — просто проверяем, как это выглядит.</div>
+        `;
+
+        document.querySelectorAll("[data-topic]").forEach(btn => {
+          btn.addEventListener("click", () => {
+            state.topic = btn.getAttribute("data-topic");
+            state.screen = "test";
+            state.picked = null;
+            state.isCorrect = null;
+            render();
+          });
+        });
+      }
+
+      function renderTest() {
+        const q = questionsByTopic[state.topic];
+
+        app.innerHTML = `
+          <h2>${state.topic}</h2>
+          <div class="question">${q.question}</div>
+
+          <div class="answers">
+            ${q.answers.map((a, i) => `
+              <div class="answer" data-answer="${i}">${a}</div>
+            `).join("")}
+          </div>
+
+          <button class="btn secondary" id="backBtn">Назад</button>
+        `;
+
+        document.getElementById("backBtn").addEventListener("click", () => {
+          state.screen = "home";
+          render();
+        });
+
+        document.querySelectorAll("[data-answer]").forEach(el => {
+          el.addEventListener("click", () => {
+            const picked = Number(el.getAttribute("data-answer"));
+            state.picked = picked;
+            state.isCorrect = picked === q.correctIndex;
+
+            // Подсветим сразу
+            document.querySelectorAll("[data-answer]").forEach((node) => {
+              const idx = Number(node.getAttribute("data-answer"));
+              node.classList.remove("correct", "wrong");
+              if (idx === q.correctIndex) node.classList.add("correct");
+              if (idx === picked && idx !== q.correctIndex) node.classList.add("wrong");
+            });
+
+            // Переходим на результат через 600мс
+            setTimeout(() => {
+              state.screen = "result";
+              render();
+            }, 600);
+          });
+        });
+      }
+
+      function renderResult() {
+        app.innerHTML = `
+          <h2>Результат</h2>
+          <div class="question">
+            ${state.isCorrect ? "✅ Верно!" : "❌ Неверно"}
+          </div>
+          <button class="btn" id="againBtn">Ещё раз</button>
+          <button class="btn secondary" id="homeBtn">К темам</button>
+        `;
+
+        document.getElementById("againBtn").addEventListener("click", () => {
+          state.screen = "test";
+          render();
+        });
+
+        document.getElementById("homeBtn").addEventListener("click", () => {
+          state.screen = "home";
+          render();
+        });
+      }
+
+      function render() {
+        if (state.screen === "home") return renderHome();
+        if (state.screen === "test") return renderTest();
+        return renderResult();
+      }
+
+      render();
+    </script>
   </body>
 </html>
