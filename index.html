@@ -632,14 +632,15 @@ render();
                 <div class="grid">
                   ${sections
   .filter((section) => section !== "Random")
-  .map(
-    (section) => `
-  <button class="topic-btn" data-section="${escapeHtml(section)}">
-    ${section}
-  </button>
+.map(
+  (section) => `
+<button class="topic-btn" data-section="${escapeHtml(section)}">
+  <span>${section}</span>
+  <span class="btn-icon">${getIcon(section)}</span>
+</button>
 `
-  )
-  .join("")}
+)
+.join("")}
 
 <div style="grid-column: 1 / -1; margin-top: 20px; display:flex; justify-content:center;">
 <button class="mode-btn random-btn" data-section="Random">
