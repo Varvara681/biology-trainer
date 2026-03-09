@@ -320,12 +320,18 @@
       ];
 
       const state = {
-        screen: "welcome",
-        history: [],
-        currentSection: null,
-        currentTopic: null,
-        trainerContext: null
-      };
+  screen: "welcome",
+  history: [],
+  currentSection: null,
+  currentTopic: null,
+  trainerContext: null
+};
+
+const savedState = localStorage.getItem("bioState");
+
+if (savedState) {
+  Object.assign(state, JSON.parse(savedState));
+}
 
       const app = document.getElementById("app");
 
@@ -713,12 +719,15 @@
       }
 
       function render() {
-        if (state.screen === "welcome") return renderWelcome();
-        if (state.screen === "sections") return renderSections();
-        if (state.screen === "subtopics") return renderSubtopics();
-        if (state.screen === "modes") return renderModes();
-        return renderTrainer();
-      }
+
+    localStorage.setItem("bioState", JSON.stringify(state));
+
+    if (state.screen === "welcome") return renderWelcome();
+    if (state.screen === "sections") return renderSections();
+    if (state.screen === "subtopics") return renderSubtopics();
+    if (state.screen === "modes") return renderModes();
+    return renderTrainer();
+}
 
       render();
     </script>
