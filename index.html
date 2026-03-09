@@ -492,14 +492,21 @@
 
                 <div class="grid">
                   ${sections
-                    .map(
-                      (section) => `
-                    <button class="topic-btn ${section === "Random" ? "random-btn" : ""}" data-section="${escapeHtml(section)}">
-                      ${section}
-                    </button>
-                  `
-                    )
-                    .join("")}
+  .filter((section) => section !== "Random")
+  .map(
+    (section) => `
+  <button class="topic-btn" data-section="${escapeHtml(section)}">
+    ${section}
+  </button>
+`
+  )
+  .join("")}
+
+<div style="grid-column: 1 / -1; margin-top: 20px;">
+  <button class="mode-btn random-btn" data-section="Random">
+    🎲 Тренировка Random
+  </button>
+</div>
                 </div>
               </div>
             </div>
