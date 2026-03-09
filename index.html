@@ -719,8 +719,8 @@ if (savedState) {
       }
 
       function render() {
-
     localStorage.setItem("bioState", JSON.stringify(state));
+    console.log("SAVE STATE", state);
 
     if (state.screen === "welcome") return renderWelcome();
     if (state.screen === "sections") return renderSections();
