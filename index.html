@@ -397,7 +397,10 @@ if (savedState) {
         state.currentSection = null;
         state.currentTopic = null;
         state.trainerContext = null;
-        render();
+
+localStorage.setItem("welcomeSeen", "true");
+
+render();
       }
 
       function openSection(sectionName) {
@@ -746,17 +749,23 @@ if (savedState) {
       }
 
       function render() {
-    localStorage.setItem("bioState", JSON.stringify(state));
-    console.log("SAVE STATE", state);
+  localStorage.setItem("bioState", JSON.stringify(state));
+  console.log("SAVE STATE", state);
 
-    if (state.screen === "welcome") return renderWelcome();
-    if (state.screen === "sections") return renderSections();
-    if (state.screen === "subtopics") return renderSubtopics();
-    if (state.screen === "modes") return renderModes();
-    return renderTrainer();
+  if (state.screen === "welcome") return renderWelcome();
+  if (state.screen === "sections") return renderSections();
+  if (state.screen === "subtopics") return renderSubtopics();
+  if (state.screen === "modes") return renderModes();
+  return renderTrainer();
 }
 
-      render();
+const welcomeSeen = localStorage.getItem("welcomeSeen");
+
+if (welcomeSeen) {
+  state.screen = "sections";
+}
+
+render();
     </script>
   </body>
 </html>
