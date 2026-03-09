@@ -82,12 +82,19 @@
       }
 
       .header-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 12px;
-        margin-bottom: 18px;
-      }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #f3f4f6;
+  padding-top: 8px;
+  padding-bottom: 12px;
+}
 
       .header-text h1,
       .header-text h2 {
