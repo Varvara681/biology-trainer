@@ -537,14 +537,21 @@
 
                 <div class="grid">
                   ${subtopics
-                    .map(
-                      (subtopic) => `
-                    <button class="subtopic-btn ${subtopic === "Рандом" ? "random-btn" : ""}" data-subtopic="${escapeHtml(subtopic)}">
-                      ${subtopic}
-                    </button>
-                  `
-                    )
-                    .join("")}
+  .filter(subtopic => subtopic !== "Рандом")
+  .map(
+    (subtopic) => `
+<button class="subtopic-btn" data-subtopic="${escapeHtml(subtopic)}">
+  ${subtopic}
+</button>
+`
+  )
+  .join("")}
+
+<div style="grid-column: 1 / -1; margin-top: 20px;">
+  <button class="mode-btn random-btn" data-subtopic="Рандом">
+    🎲 Тренировка Random
+  </button>
+</div>
                 </div>
               </div>
             </div>
