@@ -222,10 +222,37 @@
         }
 
         .title {
-          font-size: 26px;
-        }
-      }
-    </style>
+  font-size: 26px;
+}
+
+/* нижняя панель навигации на мобильных */
+.nav-actions {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  display: flex;
+  gap: 12px;
+
+  padding: 12px 16px;
+  background: #ffffff;
+
+  justify-content: center;
+  box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
+}
+
+.nav-actions .action-btn {
+  flex: 1;
+  max-width: 200px;
+}
+
+.panel {
+  padding-bottom: 80px;
+}
+
+}
+</style>
   </head>
   <body>
     <div id="app"></div>
