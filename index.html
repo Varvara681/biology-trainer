@@ -113,18 +113,30 @@
       }
 
       .topic-btn,
-      .subtopic-btn,
-      .mode-btn,
-      .action-btn {
-        border: none;
-        border-radius: 16px;
-        padding: 16px 14px;
-        font-size: 15px;
-        font-weight: 600;
-        line-height: 1.35;
-        cursor: pointer;
-        transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
-      }
+.subtopic-btn,
+.mode-btn,
+.action-btn {
+  border: none;
+  border-radius: 16px;
+  padding: 20px 16px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.35;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: left;
+}
+
+.btn-icon {
+  font-size: 18px;
+  opacity: 0.9;
+  margin-left: 12px;
+  flex-shrink: 0;
+}
 
       .topic-btn:hover,
       .subtopic-btn:hover,
