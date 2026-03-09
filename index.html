@@ -688,7 +688,8 @@ render();
   .map(
     (subtopic) => `
 <button class="subtopic-btn" data-subtopic="${escapeHtml(subtopic)}">
-  ${subtopic}
+  <span>${subtopic}</span>
+  <span class="btn-icon">${getIcon(subtopic)}</span>
 </button>
 `
   )
