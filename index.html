@@ -3,214 +3,703 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Тренажёр</title>
-    <meta name="apple-mobile-web-app-title" content="FLUMO">
-<link rel="icon" href="icon.png">
-<link rel="apple-touch-icon" sizes="512x512" href="icon.png">
-<link rel="apple-touch-icon" href="icon.png">
+    <title>FLUMO</title>
+    <meta name="apple-mobile-web-app-title" content="FLUMO" />
+    <link rel="icon" href="icon.png" />
+    <link rel="apple-touch-icon" sizes="512x512" href="icon.png" />
+    <link rel="apple-touch-icon" href="icon.png" />
+
     <style>
+      * {
+        box-sizing: border-box;
+      }
+
       body {
         margin: 0;
         font-family: Arial, sans-serif;
-        background: #f3f4f6;
+        background: #f5f5f7;
+        color: #1f2937;
+      }
+
+      .screen {
         min-height: 100vh;
+        padding: 20px 16px 28px;
         display: flex;
-        align-items: center;
         justify-content: center;
+        align-items: center;
       }
 
-      .card {
-        background: white;
-        padding: 30px;
-        border-radius: 16px;
-        width: 360px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      .welcome-screen {
         text-align: center;
-      }
-
-      h2 {
-        margin: 0 0 18px 0;
-      }
-
-      .btn {
-        display: block;
-        width: 100%;
-        margin-top: 14px;
-        padding: 12px;
-        border-radius: 10px;
-        border: none;
-        background: #4f46e5;
-        color: white;
+        padding: 32px 24px;
         cursor: pointer;
+      }
+
+      .welcome-card {
+        width: 100%;
+        max-width: 420px;
+        background: white;
+        border-radius: 24px;
+        padding: 36px 28px;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+      }
+
+      .app-shell {
+        width: 100%;
+        max-width: 900px;
+      }
+
+      .panel {
+        background: white;
+        border-radius: 24px;
+        padding: 20px;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+      }
+
+      .title {
+        margin: 0;
+        font-size: 30px;
+        line-height: 1.15;
+      }
+
+      .subtitle {
+        margin: 14px 0 0;
+        color: #6b7280;
         font-size: 16px;
+        line-height: 1.5;
       }
 
-      .btn.secondary {
-        background: #111827;
+      .hint {
+        margin-top: 22px;
+        color: #8b5cf6;
+        font-size: 14px;
+        font-weight: 600;
       }
 
-      .question {
-        font-size: 18px;
-        margin: 16px 0;
+      .header-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 18px;
       }
 
-      .answers {
-        display: grid;
+      .header-text h1,
+      .header-text h2 {
+        margin: 0;
+      }
+
+      .header-text p {
+        margin: 8px 0 0;
+        color: #6b7280;
+        line-height: 1.4;
+      }
+
+      .nav-actions {
+        display: flex;
         gap: 10px;
-        margin-top: 16px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .topic-btn,
+      .subtopic-btn,
+      .mode-btn,
+      .action-btn {
+        border: none;
+        border-radius: 16px;
+        padding: 16px 14px;
+        font-size: 15px;
+        font-weight: 600;
+        line-height: 1.35;
+        cursor: pointer;
+        transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+      }
+
+      .topic-btn:hover,
+      .subtopic-btn:hover,
+      .mode-btn:hover,
+      .action-btn:hover {
+        transform: translateY(-1px);
+      }
+
+      .topic-btn,
+      .subtopic-btn,
+      .mode-btn {
+        background: #ede9fe;
+        color: #4c1d95;
+      }
+
+      .random-btn {
+        background: #ddd6fe;
+        color: #5b21b6;
+      }
+
+      .action-btn {
+        background: #111827;
+        color: white;
+        padding: 12px 16px;
+        border-radius: 12px;
+        font-size: 14px;
+      }
+
+      .action-btn.secondary {
+        background: #e5e7eb;
+        color: #111827;
+      }
+
+      .trainer-box {
+        text-align: center;
+        padding: 24px 8px 8px;
+      }
+
+      .trainer-title {
+        margin: 0 0 10px;
+        font-size: 28px;
+      }
+
+      .trainer-subtitle {
+        margin: 0;
+        color: #6b7280;
+        line-height: 1.5;
+      }
+
+      .trainer-placeholder {
+        margin-top: 22px;
+        padding: 18px;
+        border-radius: 18px;
+        background: #f9fafb;
+        border: 1px solid #ececf1;
         text-align: left;
       }
 
-      .answer {
-        border: 1px solid #e5e7eb;
-        border-radius: 12px;
-        padding: 12px;
-        cursor: pointer;
-        user-select: none;
+      .trainer-placeholder h3 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-size: 18px;
       }
 
-      .answer:hover {
-        background: #f9fafb;
+      .trainer-placeholder p {
+        margin: 8px 0;
+        color: #4b5563;
+        line-height: 1.5;
       }
 
-      .answer.correct {
-        border-color: #16a34a;
-        background: #dcfce7;
+      .breadcrumbs {
+        margin-top: 6px;
+        margin-bottom: 18px;
+        color: #8b5cf6;
+        font-size: 13px;
+        font-weight: 600;
       }
 
-      .answer.wrong {
-        border-color: #dc2626;
-        background: #fee2e2;
-      }
+      @media (max-width: 720px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
 
-      .muted {
-        color: #6b7280;
-        font-size: 14px;
-        margin-top: 10px;
+        .header-row {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .nav-actions {
+          justify-content: stretch;
+        }
+
+        .action-btn {
+          width: 100%;
+        }
+
+        .title {
+          font-size: 26px;
+        }
       }
     </style>
   </head>
   <body>
-    <div class="card" id="app"></div>
+    <div id="app"></div>
 
     <script>
-      const topics = ["Ботаника", "Зоология", "Анатомия"];
-
-      // Пока пример: 1 вопрос на тему (потом расширим до твоего контента)
-      const questionsByTopic = {
+      const structure = {
+        "Биология как наука": "trainer",
+        "Цитология": "trainer",
+        "Химический состав клетки": "trainer",
+        "Обмен веществ": {
+          "Энергетический обмен": "trainer",
+          "Фотосинтез и хемосинтез": "trainer",
+          "Матричные процессы": "trainer",
+          "Рандом": "random-subtopics"
+        },
+        "Синтез белка": "trainer",
+        "Деление клеток": "trainer",
+        "Размножение": "trainer",
+        "Экология": {
+          "Экологические факторы": "trainer",
+          "Среды жизни": "trainer",
+          "Взаимодействие организмов": "trainer",
+          "Экосистемы": "trainer",
+          "Пищевые цепи": "trainer",
+          "Биомы": "trainer",
+          "Биосфера. Круговорот веществ": "trainer",
+          "Биогеоценоз и агроценоз": "trainer",
+          "Экологические проблемы": "trainer",
+          "Рандом": "random-subtopics"
+        },
+        "Биосфера": "trainer",
+        "Сукцессия": "trainer",
+        "Эволюция": "trainer",
+        "Антропогенез": "trainer",
+        "Происхождение жизни на Земле": "trainer",
+        "Генетика": "trainer",
+        "Селекция": "trainer",
         "Ботаника": {
-          question: "Что относится к растениям?",
-          answers: ["Гриб", "Сосна", "Амёба", "Кит"],
-          correctIndex: 1
+          "Ткани растений": "trainer",
+          "Вегетативные органы растений": "trainer",
+          "Водоросли": "trainer",
+          "Мхи": "trainer",
+          "Хвощи, плауны, папоротники": "trainer",
+          "Голосеменные": "trainer",
+          "Покрытосеменные": "trainer",
+          "Агротехника": "trainer",
+          "Фитогормоны": "trainer",
+          "Систематика растений": "trainer",
+          "Рандом": "random-subtopics"
         },
         "Зоология": {
-          question: "Кто из них млекопитающее?",
-          answers: ["Лягушка", "Акула", "Дельфин", "Курица"],
-          correctIndex: 2
+          "Простейшие": "trainer",
+          "Кишечнополостные": "trainer",
+          "Черви-паразиты: плоские, круглые и кольчатые": "trainer",
+          "Членистоногие": "trainer",
+          "Моллюски": "trainer",
+          "Рыбы и низшие хордовые": "trainer",
+          "Земноводные": "trainer",
+          "Пресмыкающиеся": "trainer",
+          "Птицы": "trainer",
+          "Млекопитающие": "trainer",
+          "Систематика животных": "trainer",
+          "Рандом": "random-subtopics"
         },
         "Анатомия": {
-          question: "Какой орган перекачивает кровь?",
-          answers: ["Печень", "Сердце", "Желудок", "Почки"],
-          correctIndex: 1
-        }
+          "Ткани человека": "trainer",
+          "Пищеварительная система": "trainer",
+          "Дыхательная система": "trainer",
+          "Сердечно-сосудистая система": "trainer",
+          "Кровь и лимфа": "trainer",
+          "Иммунитет": "trainer",
+          "Нервная система": "trainer",
+          "Анализаторы": "trainer",
+          "Опорно-двигательный аппарат": "trainer",
+          "Мочеполовая система": "trainer",
+          "Эндокринная система": "trainer",
+          "Покровы и терморегуляция": "trainer",
+          "Здоровье человека": "trainer",
+          "Рандом": "random-subtopics"
+        },
+        "Прочие царства": "trainer",
+        "Эксперименты в биологии": "trainer",
+        "Random": "random-all"
       };
 
+      const trainingModes = [
+        { key: "yes-no", label: "Да / Нет" },
+        { key: "choice-4", label: "Выбор из 4 вариантов" },
+        { key: "close-definitions", label: "Найти правильное определение" },
+        { key: "write-term", label: "Написание термина" },
+        { key: "random-mode", label: "Random" }
+      ];
+
       const state = {
-        screen: "home", // home | test | result
-        topic: null,
-        picked: null,
-        isCorrect: null
+        screen: "welcome",
+        history: [],
+        currentSection: null,
+        currentTopic: null,
+        trainerContext: null
       };
 
       const app = document.getElementById("app");
 
-      function renderHome() {
+      function pushHistory(snapshot) {
+        state.history.push(JSON.parse(JSON.stringify(snapshot)));
+      }
+
+      function goBack() {
+        if (state.history.length === 0) return;
+        const prev = state.history.pop();
+        state.screen = prev.screen;
+        state.currentSection = prev.currentSection;
+        state.currentTopic = prev.currentTopic;
+        state.trainerContext = prev.trainerContext;
+        render();
+      }
+
+      function goHome() {
+        state.screen = "sections";
+        state.currentSection = null;
+        state.currentTopic = null;
+        state.trainerContext = null;
+        state.history = [{ screen: "welcome", currentSection: null, currentTopic: null, trainerContext: null }];
+        render();
+      }
+
+      function openSections() {
+        pushHistory({
+          screen: state.screen,
+          currentSection: state.currentSection,
+          currentTopic: state.currentTopic,
+          trainerContext: state.trainerContext
+        });
+
+        state.screen = "sections";
+        state.currentSection = null;
+        state.currentTopic = null;
+        state.trainerContext = null;
+        render();
+      }
+
+      function openSection(sectionName) {
+        const value = structure[sectionName];
+
+        pushHistory({
+          screen: state.screen,
+          currentSection: state.currentSection,
+          currentTopic: state.currentTopic,
+          trainerContext: state.trainerContext
+        });
+
+        if (value === "trainer") {
+          state.screen = "modes";
+          state.currentSection = sectionName;
+          state.currentTopic = sectionName;
+          state.trainerContext = {
+            type: "section-direct",
+            title: sectionName
+          };
+        } else if (value === "random-all") {
+          state.screen = "trainer";
+          state.currentSection = null;
+          state.currentTopic = null;
+          state.trainerContext = {
+            type: "random-all",
+            title: "Random по всем разделам"
+          };
+        } else {
+          state.screen = "subtopics";
+          state.currentSection = sectionName;
+          state.currentTopic = null;
+          state.trainerContext = null;
+        }
+
+        render();
+      }
+
+      function openSubtopic(subtopicName) {
+        const value = structure[state.currentSection][subtopicName];
+
+        pushHistory({
+          screen: state.screen,
+          currentSection: state.currentSection,
+          currentTopic: state.currentTopic,
+          trainerContext: state.trainerContext
+        });
+
+        if (value === "random-subtopics") {
+          state.screen = "trainer";
+          state.currentTopic = null;
+          state.trainerContext = {
+            type: "random-subtopics",
+            title: `Random: ${state.currentSection}`
+          };
+        } else {
+          state.screen = "modes";
+          state.currentTopic = subtopicName;
+          state.trainerContext = {
+            type: "topic",
+            title: subtopicName
+          };
+        }
+
+        render();
+      }
+
+      function openTrainingMode(modeKey, modeLabel) {
+        pushHistory({
+          screen: state.screen,
+          currentSection: state.currentSection,
+          currentTopic: state.currentTopic,
+          trainerContext: state.trainerContext
+        });
+
+        state.screen = "trainer";
+
+        if (modeKey === "random-mode") {
+          state.trainerContext = {
+            type: "random-mode",
+            title: `Random: ${state.currentTopic}`,
+            mode: modeLabel
+          };
+        } else {
+          state.trainerContext = {
+            type: "mode",
+            title: state.currentTopic,
+            mode: modeLabel
+          };
+        }
+
+        render();
+      }
+
+      function renderWelcome() {
         app.innerHTML = `
-          <h2>Выберите тему</h2>
-          ${topics.map(t => `<button class="btn" data-topic="${t}">${t}</button>`).join("")}
-          <div class="muted">Пока 1 вопрос на тему — просто проверяем, как это выглядит.</div>
+          <div class="screen welcome-screen" id="welcomeTap">
+            <div class="welcome-card">
+              <h1 class="title">Добро пожаловать в Flumo</h1>
+              <p class="subtitle">Регулярная тренировка помогает закреплять термины и понятия.</p>
+              <div class="hint">Нажмите, чтобы начать тренировку</div>
+            </div>
+          </div>
         `;
 
-        document.querySelectorAll("[data-topic]").forEach(btn => {
+        document.getElementById("welcomeTap").addEventListener("click", openSections);
+      }
+
+      function renderSections() {
+        const sections = Object.keys(structure);
+
+        app.innerHTML = `
+          <div class="screen">
+            <div class="app-shell">
+              <div class="panel">
+                <div class="header-row">
+                  <div class="header-text">
+                    <h1>Разделы ЕГЭ Биология</h1>
+                    <p>Выберите раздел, чтобы перейти к тренировке.</p>
+                  </div>
+                  <div class="nav-actions">
+                    <button class="action-btn secondary" id="backBtn">Назад</button>
+                  </div>
+                </div>
+
+                <div class="grid">
+                  ${sections
+                    .map(
+                      (section) => `
+                    <button class="topic-btn ${section === "Random" ? "random-btn" : ""}" data-section="${escapeHtml(section)}">
+                      ${section}
+                    </button>
+                  `
+                    )
+                    .join("")}
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+
+        document.getElementById("backBtn").addEventListener("click", goBack);
+
+        document.querySelectorAll("[data-section]").forEach((btn) => {
           btn.addEventListener("click", () => {
-            state.topic = btn.getAttribute("data-topic");
-            state.screen = "test";
-            state.picked = null;
-            state.isCorrect = null;
-            render();
+            openSection(btn.getAttribute("data-section"));
           });
         });
       }
 
-      function renderTest() {
-        const q = questionsByTopic[state.topic];
+      function renderSubtopics() {
+        const subtopics = Object.keys(structure[state.currentSection]);
 
         app.innerHTML = `
-          <h2>${state.topic}</h2>
-          <div class="question">${q.question}</div>
+          <div class="screen">
+            <div class="app-shell">
+              <div class="panel">
+                <div class="header-row">
+                  <div class="header-text">
+                    <h2>${state.currentSection}</h2>
+                    <p>Выберите тему для тренировки.</p>
+                  </div>
+                  <div class="nav-actions">
+                    <button class="action-btn secondary" id="backBtn">Назад</button>
+                    <button class="action-btn" id="homeBtn">Главное меню</button>
+                  </div>
+                </div>
 
-          <div class="answers">
-            ${q.answers.map((a, i) => `
-              <div class="answer" data-answer="${i}">${a}</div>
-            `).join("")}
+                <div class="breadcrumbs">Раздел: ${state.currentSection}</div>
+
+                <div class="grid">
+                  ${subtopics
+                    .map(
+                      (subtopic) => `
+                    <button class="subtopic-btn ${subtopic === "Рандом" ? "random-btn" : ""}" data-subtopic="${escapeHtml(subtopic)}">
+                      ${subtopic}
+                    </button>
+                  `
+                    )
+                    .join("")}
+                </div>
+              </div>
+            </div>
           </div>
-
-          <button class="btn secondary" id="backBtn">Назад</button>
         `;
 
-        document.getElementById("backBtn").addEventListener("click", () => {
-          state.screen = "home";
-          render();
-        });
+        document.getElementById("backBtn").addEventListener("click", goBack);
+        document.getElementById("homeBtn").addEventListener("click", goHome);
 
-        document.querySelectorAll("[data-answer]").forEach(el => {
-          el.addEventListener("click", () => {
-            const picked = Number(el.getAttribute("data-answer"));
-            state.picked = picked;
-            state.isCorrect = picked === q.correctIndex;
-
-            // Подсветим сразу
-            document.querySelectorAll("[data-answer]").forEach((node) => {
-              const idx = Number(node.getAttribute("data-answer"));
-              node.classList.remove("correct", "wrong");
-              if (idx === q.correctIndex) node.classList.add("correct");
-              if (idx === picked && idx !== q.correctIndex) node.classList.add("wrong");
-            });
-
-            // Переходим на результат через 600мс
-            setTimeout(() => {
-              state.screen = "result";
-              render();
-            }, 600);
+        document.querySelectorAll("[data-subtopic]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            openSubtopic(btn.getAttribute("data-subtopic"));
           });
         });
       }
 
-      function renderResult() {
+      function renderModes() {
         app.innerHTML = `
-          <h2>Результат</h2>
-          <div class="question">
-            ${state.isCorrect ? "✅ Верно!" : "❌ Неверно"}
+          <div class="screen">
+            <div class="app-shell">
+              <div class="panel">
+                <div class="header-row">
+                  <div class="header-text">
+                    <h2>${state.currentTopic}</h2>
+                    <p>Выберите формат тренировки.</p>
+                  </div>
+                  <div class="nav-actions">
+                    <button class="action-btn secondary" id="backBtn">Назад</button>
+                    <button class="action-btn" id="homeBtn">Главное меню</button>
+                  </div>
+                </div>
+
+                <div class="breadcrumbs">
+                  ${state.currentSection ? `${state.currentSection} → ` : ""}${state.currentTopic}
+                </div>
+
+                <div class="grid">
+                  ${trainingModes
+                    .map(
+                      (mode) => `
+                    <button class="mode-btn ${mode.key === "random-mode" ? "random-btn" : ""}" data-mode="${mode.key}" data-label="${mode.label}">
+                      ${mode.label}
+                    </button>
+                  `
+                    )
+                    .join("")}
+                </div>
+              </div>
+            </div>
           </div>
-          <button class="btn" id="againBtn">Ещё раз</button>
-          <button class="btn secondary" id="homeBtn">К темам</button>
         `;
 
-        document.getElementById("againBtn").addEventListener("click", () => {
-          state.screen = "test";
-          render();
-        });
+        document.getElementById("backBtn").addEventListener("click", goBack);
+        document.getElementById("homeBtn").addEventListener("click", goHome);
 
-        document.getElementById("homeBtn").addEventListener("click", () => {
-          state.screen = "home";
-          render();
+        document.querySelectorAll("[data-mode]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            openTrainingMode(btn.getAttribute("data-mode"), btn.getAttribute("data-label"));
+          });
         });
+      }
+
+      function renderTrainer() {
+        let heading = "";
+        let text = "";
+
+        if (state.trainerContext.type === "random-all") {
+          heading = "Random по всем разделам";
+          text = "Здесь позже появится смешанная тренировка по всем разделам биологии.";
+        } else if (state.trainerContext.type === "random-subtopics") {
+          heading = state.trainerContext.title;
+          text = "Здесь позже появится случайная тренировка по подтемам выбранного раздела.";
+        } else if (state.trainerContext.type === "random-mode") {
+          heading = state.trainerContext.title;
+          text = "Здесь позже появится смешивание разных типов заданий внутри одной темы.";
+        } else if (state.trainerContext.type === "section-direct") {
+          heading = state.trainerContext.title;
+          text = "Этот раздел ведёт сразу в тренажёр. Позже сюда будет добавлено наполнение.";
+        } else {
+          heading = `${state.trainerContext.title} — ${state.trainerContext.mode}`;
+          text = "Здесь позже появится конкретный формат тренировки и реальные вопросы.";
+        }
+
+        app.innerHTML = `
+          <div class="screen">
+            <div class="app-shell">
+              <div class="panel">
+                <div class="header-row">
+                  <div class="header-text">
+                    <h2>${heading}</h2>
+                    <p>Структура готова. Следующим шагом можно добавлять наполнение заданий.</p>
+                  </div>
+                  <div class="nav-actions">
+                    <button class="action-btn secondary" id="backBtn">Назад</button>
+                    <button class="action-btn" id="homeBtn">Главное меню</button>
+                  </div>
+                </div>
+
+                <div class="breadcrumbs">
+                  ${buildBreadcrumbs()}
+                </div>
+
+                <div class="trainer-box">
+                  <h3 class="trainer-title">Тренажёр</h3>
+                  <p class="trainer-subtitle">Пока это экран-заглушка для выбранного режима.</p>
+
+                  <div class="trainer-placeholder">
+                    <h3>Что здесь будет дальше</h3>
+                    <p>${text}</p>
+                    <p><strong>Следующий шаг:</strong> начать по очереди наполнять режимы вопросами.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+
+        document.getElementById("backBtn").addEventListener("click", goBack);
+        document.getElementById("homeBtn").addEventListener("click", goHome);
+      }
+
+      function buildBreadcrumbs() {
+        const parts = [];
+
+        if (state.currentSection) parts.push(state.currentSection);
+        if (state.currentTopic && state.currentTopic !== state.currentSection) parts.push(state.currentTopic);
+        if (state.trainerContext && state.trainerContext.mode && state.trainerContext.type !== "random-mode") {
+          parts.push(state.trainerContext.mode);
+        }
+
+        if (state.trainerContext && state.trainerContext.type === "random-all") {
+          return "Все разделы → Random";
+        }
+
+        if (state.trainerContext && state.trainerContext.type === "random-subtopics") {
+          return `${state.currentSection} → Random`;
+        }
+
+        if (state.trainerContext && state.trainerContext.type === "random-mode") {
+          return `${state.currentSection ? state.currentSection + " → " : ""}${state.currentTopic} → Random`;
+        }
+
+        return parts.join(" → ");
+      }
+
+      function escapeHtml(text) {
+        return text
+          .replaceAll("&", "&amp;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;");
       }
 
       function render() {
-        if (state.screen === "home") return renderHome();
-        if (state.screen === "test") return renderTest();
-        return renderResult();
+        if (state.screen === "welcome") return renderWelcome();
+        if (state.screen === "sections") return renderSections();
+        if (state.screen === "subtopics") return renderSubtopics();
+        if (state.screen === "modes") return renderModes();
+        return renderTrainer();
       }
 
       render();
