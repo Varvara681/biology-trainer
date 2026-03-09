@@ -469,6 +469,10 @@ function getIcon(name) {
   return icons[name] || "🧬";
 }
 
+function getProgress(name) {
+  return "";
+}
+
 function goBack() {
         if (state.history.length === 0) return;
         const prev = state.history.pop();
@@ -635,8 +639,12 @@ render();
 .map(
   (section) => `
 <button class="topic-btn" data-section="${escapeHtml(section)}">
-  <span>${section}</span>
-  <span class="btn-icon">${getIcon(section)}</span>
+  <span class="btn-left">
+    <span class="btn-icon">${getIcon(section)}</span>
+    <span class="btn-title">${section}</span>
+  </span>
+
+  <span class="btn-progress">${getProgress(section)}</span>
 </button>
 `
 )
@@ -688,8 +696,12 @@ render();
   .map(
     (subtopic) => `
 <button class="subtopic-btn" data-subtopic="${escapeHtml(subtopic)}">
-  <span>${subtopic}</span>
-  <span class="btn-icon">${getIcon(subtopic)}</span>
+  <span class="btn-left">
+    <span class="btn-icon">${getIcon(subtopic)}</span>
+    <span class="btn-title">${subtopic}</span>
+  </span>
+
+  <span class="btn-progress">${getProgress(subtopic)}</span>
 </button>
 `
   )
