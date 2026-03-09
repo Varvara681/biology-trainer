@@ -738,14 +738,15 @@ render();
 
                 <div class="grid">
                   ${trainingModes
-                    .map(
-                      (mode) => `
-                    <button class="mode-btn ${mode.key === "random-mode" ? "random-btn" : ""}" data-mode="${mode.key}" data-label="${mode.label}">
-                      ${mode.label}
-                    </button>
-                  `
-                    )
-                    .join("")}
+  .map(
+    (mode) => `
+<button class="mode-btn ${mode.key === "random-mode" ? "random-btn" : ""}" data-mode="${mode.key}" data-label="${mode.label}">
+  <span>${mode.label}</span>
+  <span class="btn-icon">${getIcon(mode.label)}</span>
+</button>
+`
+  )
+  .join("")}
                 </div>
               </div>
             </div>
