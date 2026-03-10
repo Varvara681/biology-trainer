@@ -565,33 +565,53 @@ render();
       }
 
       function openSubtopic(subtopicName) {
-        const value = structure[state.currentSection][subtopicName];
+  const value = structure[state.currentSection][subtopicName];
 
-        pushHistory({
-          screen: state.screen,
-          currentSection: state.currentSection,
-          currentTopic: state.currentTopic,
-          trainerContext: state.trainerContext
-        });
+  pushHistory({
+    screen: state.screen,
+    currentSection: state.currentSection,
+    currentTopic: state.currentTopic,
+    trainerContext: state.trainerContext
+  });
 
-        if (value === "random-subtopics") {
-          state.screen = "trainer";
-          state.currentTopic = null;
-          state.trainerContext = {
-            type: "random-subtopics",
-            title: `Random: ${state.currentSection}`
-          };
-        } else {
-          state.screen = "modes";
-          state.currentTopic = subtopicName;
-          state.trainerContext = {
-            type: "topic",
-            title: subtopicName
-          };
-        }
+  if (value === "trainer") {
+    state.screen = "modes";
+    state.currentTopic = subtopicName;
+    state.trainerContext = null;
 
-        render();
-      }
+  } else if (value === "mixed-topic") {
+    state.screen = "trainer";
+    state.currentTopic = subtopicName;
+    state.trainerContext = {
+      type: "random-mode",
+      title: "Смешанная тренировка"
+    };
+
+  } else if (value === "theory") {
+    state.screen = "trainer";
+    state.currentTopic = subtopicName;
+    state.trainerContext = {
+      type: "theory",
+      title: "Теория"
+    };
+
+  } else if (typeof value === "object") {
+    state.screen = "subtopics";
+    state.currentSection = subtopicName;
+    state.currentTopic = null;
+    state.trainerContext = null;
+
+  } else if (value === "random-subtopics") {
+    state.screen = "trainer";
+    state.currentTopic = null;
+    state.trainerContext = {
+      type: "random-subtopics",
+      title: `Random по разделу ${state.currentSection}`
+    };
+  }
+
+  render();
+}
 
       function openTrainingMode(modeKey, modeLabel) {
         pushHistory({
