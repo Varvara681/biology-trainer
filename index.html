@@ -604,11 +604,10 @@ render();
     };
 
   } else if (typeof value === "object" && value !== null) {
-    state.screen = "subtopics";
-    state.currentSection = subtopicName;
-    state.currentTopic = null;
-    state.trainerContext = null;
-  }
+  state.screen = "subtopics";
+  state.currentTopic = subtopicName;
+  state.trainerContext = null;
+}
 
   render();
 }
@@ -709,7 +708,11 @@ render();
       }
 
       function renderSubtopics() {
-        const subtopics = Object.keys(structure[state.currentSection]);
+        const currentData = state.currentTopic
+  ? structure[state.currentSection][state.currentTopic]
+  : structure[state.currentSection];
+
+const subtopics = Object.keys(currentData);
 
         app.innerHTML = `
           <div class="screen">
