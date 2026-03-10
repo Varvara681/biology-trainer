@@ -595,12 +595,6 @@ render();
       title: "Теория"
     };
 
-  } else if (typeof value === "object") {
-    state.screen = "subtopics";
-    state.currentSection = subtopicName;
-    state.currentTopic = null;
-    state.trainerContext = null;
-
   } else if (value === "random-subtopics") {
     state.screen = "trainer";
     state.currentTopic = null;
@@ -608,6 +602,12 @@ render();
       type: "random-subtopics",
       title: `Random по разделу ${state.currentSection}`
     };
+
+  } else if (typeof value === "object" && value !== null) {
+    state.screen = "subtopics";
+    state.currentSection = subtopicName;
+    state.currentTopic = null;
+    state.trainerContext = null;
   }
 
   render();
