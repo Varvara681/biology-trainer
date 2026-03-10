@@ -712,7 +712,9 @@ render();
   ? structure[state.currentSection][state.currentTopic]
   : structure[state.currentSection];
 
-const subtopics = Object.keys(currentData);
+const subtopics = Object.keys(currentData).filter(
+  (subtopic) => subtopic !== "Смешанная тренировка" && subtopic !== "Теория"
+);
 
         app.innerHTML = `
           <div class="screen">
@@ -732,10 +734,15 @@ const subtopics = Object.keys(currentData);
                 <div class="breadcrumbs">Раздел: ${state.currentSection}</div>
 
                 <div class="grid">
-                  ${subtopics
-  .filter(subtopic => subtopic !== "Рандом")
-  .map(
-    (subtopic) => `
+  ${subtopics
+    .filter(
+      (subtopic) =>
+        subtopic !== "Рандом" &&
+        subtopic !== "Смешанная тренировка" &&
+        subtopic !== "Теория"
+    )
+    .map(
+      (subtopic) => `
 <button class="subtopic-btn" data-subtopic="${escapeHtml(subtopic)}">
   <span class="btn-left">
     <span class="btn-icon">${getIcon(subtopic)}</span>
@@ -745,8 +752,19 @@ const subtopics = Object.keys(currentData);
   <span class="btn-progress">${getProgress(subtopic)}</span>
 </button>
 `
-  )
-  .join("")}
+    )
+    .join("")}
+</div>
+
+<div style="display:flex; gap:12px; margin-top:20px; flex-wrap:wrap;">
+  <button class="mode-btn random-btn" data-subtopic="Смешанная тренировка" style="flex:1; min-width:220px;">
+    🎲 Смешанная тренировка
+  </button>
+
+  <button class="mode-btn" data-subtopic="Теория" style="flex:1; min-width:220px;">
+    📖 Теория
+  </button>
+</div>
 
 <div style="grid-column: 1 / -1; margin-top: 20px; display:flex; justify-content:center;">
   <button class="mode-btn random-btn" data-subtopic="Рандом" style="width:auto; min-width:260px;">
