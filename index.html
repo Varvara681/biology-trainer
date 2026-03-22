@@ -565,7 +565,19 @@ render();
       }
 
       function openSubtopic(subtopicName) {
-  const value = structure[state.currentSection][subtopicName];
+  const currentData = state.currentTopic
+    ? structure[state.currentSection][state.currentTopic]
+    : structure[state.currentSection];
+
+  let value;
+
+  if (subtopicName === "Смешанная тренировка") {
+    value = "mixed-topic";
+  } else if (subtopicName === "Теория") {
+    value = "theory";
+  } else {
+    value = currentData[subtopicName];
+  }
 
   pushHistory({
     screen: state.screen,
@@ -581,7 +593,6 @@ render();
 
   } else if (value === "mixed-topic") {
     state.screen = "trainer";
-    state.currentTopic = subtopicName;
     state.trainerContext = {
       type: "random-mode",
       title: "Смешанная тренировка"
@@ -589,7 +600,6 @@ render();
 
   } else if (value === "theory") {
     state.screen = "trainer";
-    state.currentTopic = subtopicName;
     state.trainerContext = {
       type: "theory",
       title: "Теория"
@@ -604,10 +614,10 @@ render();
     };
 
   } else if (typeof value === "object" && value !== null) {
-  state.screen = "subtopics";
-  state.currentTopic = subtopicName;
-  state.trainerContext = null;
-}
+    state.screen = "subtopics";
+    state.currentTopic = subtopicName;
+    state.trainerContext = null;
+  }
 
   render();
 }
