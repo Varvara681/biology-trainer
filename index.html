@@ -723,7 +723,10 @@ render();
   : structure[state.currentSection];
 
 const subtopics = Object.keys(currentData).filter(
-  (subtopic) => subtopic !== "Смешанная тренировка" && subtopic !== "Теория"
+  (subtopic) =>
+    subtopic !== "Рандом" &&
+    subtopic !== "Смешанная тренировка" &&
+    subtopic !== "Теория"
 );
 
         app.innerHTML = `
@@ -766,22 +769,14 @@ const subtopics = Object.keys(currentData).filter(
     .join("")}
 </div>
 
-${state.currentTopic === "Нервная система" ? `
 <div style="display:flex; gap:12px; margin-top:20px; flex-wrap:wrap;">
   <button class="mode-btn random-btn" data-subtopic="Смешанная тренировка" style="flex:1; min-width:220px;">
     🎲 Смешанная тренировка
   </button>
 
-  <button class="mode-btn" data-subtopic="Теория" style="flex:1; min-width:220px;">
+  <button class="mode-btn random-btn" data-subtopic="Теория" style="flex:1; min-width:220px;">
     📖 Теория
   </button>
-</div>
-` : ""}
-
-<div style="grid-column: 1 / -1; margin-top: 20px; display:flex; justify-content:center;">
-  <button class="mode-btn random-btn" data-subtopic="Рандом" style="width:auto; min-width:260px;">
-  🎲 Смешанная тренировка
-</button>
 </div>
                 </div>
               </div>
