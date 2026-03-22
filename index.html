@@ -930,7 +930,7 @@ const subtopics = Object.keys(currentData).filter(
         app.innerHTML = `
           <div class="screen">
             <div class="app-shell">
-              <div class="panel">
+             <div class="panel">
   <div class="header-row">
     <div class="header-text">
       <h2>${state.currentSection}</h2>
@@ -941,8 +941,8 @@ const subtopics = Object.keys(currentData).filter(
       <button class="action-btn" id="homeBtn">Главное меню</button>
     </div>
   </div>
-  </div>
-<div class="grid" style="margin-top: 20px;">
+
+  <div class="grid" style="margin-top: 20px;">
   ${subtopics
     .filter(
       (subtopic) =>
