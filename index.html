@@ -779,14 +779,22 @@ render();
       title: "Смешанная тренировка"
     };
 
-  } else if (value === "theory") {
-    state.screen = "trainer";
+ } else if (value === "theory") {
+  state.screen = "trainer";
+
+  if (state.currentTopic === "Нервная система") {
     state.trainerContext = {
       type: "theory",
       title: "Теория"
     };
+  } else {
+    state.trainerContext = {
+      type: "theory-placeholder",
+      title: "Теория"
+    };
+  }
 
-  } else if (value === "random-subtopics") {
+} else if (value === "random-subtopics") {
     state.screen = "trainer";
     state.currentTopic = null;
     state.trainerContext = {
