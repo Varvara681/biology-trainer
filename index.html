@@ -1158,6 +1158,17 @@ const subtopics = Object.keys(currentData).filter(
       function renderTrainer() {
         let heading = "";
         let text = "";
+        let questions = [];
+
+if (
+  state.currentSection === "Анатомия" &&
+  state.currentTopic === "Общие термины нервной системы" &&
+  state.trainerContext &&
+  state.trainerContext.mode === "Да / Нет"
+) {
+  questions =
+    trainingData["Анатомия"]["Нервная система"]["Общие термины нервной системы"]["yes-no"];
+}
 
         if (state.trainerContext.type === "random-all") {
           heading = "Random по всем разделам";
@@ -1199,11 +1210,27 @@ const subtopics = Object.keys(currentData).filter(
                   <h3 class="trainer-title">Тренажёр</h3>
                   <p class="trainer-subtitle">Пока это экран-заглушка для выбранного режима.</p>
 
-                  <div class="trainer-placeholder">
-                    <h3>Что здесь будет дальше</h3>
-                    <p>${text}</p>
-                    <p><strong>Следующий шаг:</strong> начать по очереди наполнять режимы вопросами.</p>
-                  </div>
+                 <div class="trainer-placeholder">
+  ${
+    questions.length > 0
+      ? `
+      <h3>Вопрос 1 из ${questions.length}</h3>
+      <p style="font-size:18px; font-weight:600; line-height:1.5;">
+        ${questions[0].question}
+      </p>
+
+      <div style="margin-top:20px; display:flex; gap:12px;">
+        <button class="mode-btn">Да</button>
+        <button class="mode-btn">Нет</button>
+      </div>
+      `
+      : `
+      <h3>Что здесь будет дальше</h3>
+      <p>${text}</p>
+      <p><strong>Следующий шаг:</strong> начать по очереди наполнять режимы вопросами.</p>
+      `
+  }
+</div>
                 </div>
               </div>
             </div>
