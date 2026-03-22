@@ -1033,7 +1033,9 @@ const subtopics = Object.keys(currentData).filter(
       }
 
       function renderTheory() {
-  const theory = theoryContent["Нервная система"] || [];
+  const theory =
+  (theoryContent[state.currentSection] &&
+    theoryContent[state.currentSection][state.currentTopic]) || [];
 
   app.innerHTML = `
     <div class="screen">
