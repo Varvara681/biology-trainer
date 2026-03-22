@@ -1186,10 +1186,11 @@ if (
   state.currentSection === "Анатомия" &&
   state.currentTopic === "Общие термины нервной системы" &&
   state.trainerContext &&
+  state.trainerContext.type === "mode" &&
   state.trainerContext.mode === "Да / Нет"
 ) {
   questions =
-    trainingData["Анатомия"]["Нервная система"]["Общие термины нервной системы"]["yes-no"];
+    trainingData?.["Анатомия"]?.["Нервная система"]?.["Общие термины нервной системы"]?.["yes-no"] || [];
 
   currentQuestionIndex = state.trainerContext.currentQuestionIndex || 0;
   correctAnswers = state.trainerContext.correctAnswers || 0;
@@ -1274,13 +1275,14 @@ if (
         `;
 
         document.getElementById("backBtn").addEventListener("click", goBack);
-        document.getElementById("homeBtn").addEventListener("click", goHome);
-      }
-      document.querySelectorAll("[data-yn]").forEach((btn) => {
+document.getElementById("homeBtn").addEventListener("click", goHome);
+
+document.querySelectorAll("[data-yn]").forEach((btn) => {
   btn.addEventListener("click", () => {
     answerYesNo(btn.getAttribute("data-yn") === "true");
   });
 });
+}
 
       function buildBreadcrumbs() {
         const parts = [];
