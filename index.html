@@ -889,21 +889,40 @@ render();
         state.screen = "trainer";
 
         if (modeKey === "random-mode") {
-          state.trainerContext = {
-            type: "random-mode",
-            title: `Random: ${state.currentTopic}`,
-            mode: modeLabel
-          };
-        } else {
-          state.trainerContext = {
-            type: "mode",
-            title: state.currentTopic,
-            mode: modeLabel
-          };
-        }
+  state.trainerContext = {
+    type: "random-mode",
+    title: `Random: ${state.currentTopic}`,
+    mode: modeLabel
+  };
+} else {
+  state.trainerContext = {
+    type: "mode",
+    title: state.currentTopic,
+    mode: modeLabel,
+    currentQuestionIndex: 0,
+    correctAnswers: 0
+  };
+}
 
         render();
       }
+      function answerYesNo(userAnswer) {
+  const questions =
+    trainingData?.["Анатомия"]?.["Нервная система"]?.["Общие термины нервной системы"]?.["yes-no"] || [];
+
+  const currentIndex = state.trainerContext.currentQuestionIndex || 0;
+  const currentQuestion = questions[currentIndex];
+
+  if (!currentQuestion) return;
+
+  if (userAnswer === currentQuestion.answer) {
+    state.trainerContext.correctAnswers =
+      (state.trainerContext.correctAnswers || 0) + 1;
+  }
+
+  state.trainerContext.currentQuestionIndex = currentIndex + 1;
+  render();
+}
 
       function renderWelcome() {
         app.innerHTML = `
@@ -1159,6 +1178,9 @@ const subtopics = Object.keys(currentData).filter(
         let heading = "";
         let text = "";
         let questions = [];
+let currentQuestion = null;
+let currentQuestionIndex = 0;
+let correctAnswers = 0;
 
 if (
   state.currentSection === "Анатомия" &&
@@ -1168,6 +1190,10 @@ if (
 ) {
   questions =
     trainingData["Анатомия"]["Нервная система"]["Общие термины нервной системы"]["yes-no"];
+
+  currentQuestionIndex = state.trainerContext.currentQuestionIndex || 0;
+  correctAnswers = state.trainerContext.correctAnswers || 0;
+  currentQuestion = questions[currentQuestionIndex] || null;
 }
 
         if (state.trainerContext.type === "random-all") {
@@ -1210,20 +1236,30 @@ if (
                   <h3 class="trainer-title">Тренажёр</h3>
                   <p class="trainer-subtitle">Пока это экран-заглушка для выбранного режима.</p>
 
-                 <div class="trainer-placeholder">
+                <div class="trainer-placeholder">
   ${
     questions.length > 0
-      ? `
-      <h3>Вопрос 1 из ${questions.length}</h3>
-      <p style="font-size:18px; font-weight:600; line-height:1.5;">
-        ${questions[0].question}
-      </p>
+      ? currentQuestion
+        ? `
+        <h3>Вопрос ${currentQuestionIndex + 1} из ${questions.length}</h3>
+        <p style="font-size:18px; font-weight:600; line-height:1.5;">
+          ${currentQuestion.question}
+        </p>
 
-      <div style="margin-top:20px; display:flex; gap:12px;">
-        <button class="mode-btn">Да</button>
-        <button class="mode-btn">Нет</button>
-      </div>
-      `
+        <div style="margin-top:20px; display:flex; gap:12px;">
+          <button class="mode-btn" data-yn="true">Да</button>
+          <button class="mode-btn" data-yn="false">Нет</button>
+        </div>
+
+        <p style="margin-top:16px; color:#6b7280;">
+          Правильных ответов: ${correctAnswers}
+        </p>
+        `
+        : `
+        <h3>Тренировка завершена</h3>
+        <p>Правильных ответов: <strong>${correctAnswers}</strong> из <strong>${questions.length}</strong></p>
+        <p>Позже сюда можно добавить разбор ошибок и кнопку «Пройти ещё раз».</p>
+        `
       : `
       <h3>Что здесь будет дальше</h3>
       <p>${text}</p>
@@ -1240,6 +1276,11 @@ if (
         document.getElementById("backBtn").addEventListener("click", goBack);
         document.getElementById("homeBtn").addEventListener("click", goHome);
       }
+      document.querySelectorAll("[data-yn]").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    answerYesNo(btn.getAttribute("data-yn") === "true");
+  });
+});
 
       function buildBreadcrumbs() {
         const parts = [];
