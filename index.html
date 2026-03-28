@@ -10,9 +10,7 @@
     <link rel="apple-touch-icon" href="icon.png" />
 
     <style>
-      * {
-        box-sizing: border-box;
-      }
+      * { box-sizing: border-box; }
 
       body {
         margin: 0;
@@ -21,339 +19,332 @@
         color: #1f2937;
       }
 
+      /* ── основные экраны ── */
       .screen {
-  min-height: 100vh;
-  padding: 40px 24px;
-  display: flex;
-  justify-content: center;
-}
+        min-height: 100vh;
+        padding: 40px 24px;
+        display: flex;
+        justify-content: center;
+      }
 
       .welcome-screen {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 32px 24px;
-  cursor: pointer;
-}
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 32px 24px;
+        cursor: pointer;
+      }
 
       .welcome-card {
-  width: 100%;
-  max-width: 700px;
-  background: transparent;
-  border-radius: 0;
-  padding: 0;
-  box-shadow: none;
-}
+        width: 100%;
+        max-width: 700px;
+        background: transparent;
+        padding: 0;
+        box-shadow: none;
+      }
 
-      .app-shell {
-  width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
-}
+      .app-shell { width: 100%; max-width: 900px; margin: 0 auto; }
 
       .panel {
-  background: transparent;
-  border-radius: 0;
-  padding: 20px 10px;
-  padding-bottom: 140px;
-  box-shadow: none;
-}
-
-      .title {
-  margin: 0;
-  font-size: 48px;
-  line-height: 1.2;
-}
-
-      .subtitle {
-        margin: 14px 0 0;
-        color: #6b7280;
-        font-size: 16px;
-        line-height: 1.5;
+        background: transparent;
+        padding: 20px 10px;
+        padding-bottom: 140px;
+        box-shadow: none;
       }
 
-      .hint {
-        margin-top: 22px;
-        color: #8b5cf6;
-        font-size: 14px;
-        font-weight: 600;
-      }
+      .title { margin: 0; font-size: 48px; line-height: 1.2; }
+      .subtitle { margin: 14px 0 0; color: #6b7280; font-size: 16px; line-height: 1.5; }
+      .hint { margin-top: 22px; color: #8b5cf6; font-size: 14px; font-weight: 600; }
 
       .header-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 18px;
-
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background: #f3f4f6;
-  padding-top: 8px;
-  padding-bottom: 12px;
-}
-
-      .header-text h1,
-      .header-text h2 {
-        margin: 0;
-      }
-
-      .header-text p {
-        margin: 8px 0 0;
-        color: #6b7280;
-        line-height: 1.4;
-      }
-
-      .nav-actions {
         display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-        justify-content: flex-end;
-      }
-
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        justify-content: space-between;
+        align-items: center;
         gap: 12px;
+        margin-bottom: 18px;
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: #f3f4f6;
+        padding-top: 8px;
+        padding-bottom: 12px;
       }
 
-      .topic-btn,
-.subtopic-btn,
-.mode-btn,
-.action-btn {
-  border: none;
-  border-radius: 16px;
-  padding: 20px 16px;
-  font-size: 15px;
-  font-weight: 600;
-  line-height: 1.35;
-  cursor: pointer;
-  transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+      .header-text h1, .header-text h2 { margin: 0; }
+      .header-text p { margin: 8px 0 0; color: #6b7280; line-height: 1.4; }
 
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  text-align: left;
-}
+      .nav-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
 
-.btn-icon {
-  font-size: 18px;
-  opacity: 0.9;
-  margin-left: 12px;
-  flex-shrink: 0;
-}
+      .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 
-      .topic-btn:hover,
-      .subtopic-btn:hover,
-      .mode-btn:hover,
-      .action-btn:hover {
-        transform: translateY(-1px);
-      }
-
-      .topic-btn,
-      .subtopic-btn,
-      .mode-btn {
-        background: #ede9fe;
-        color: #4c1d95;
-      }
-
-      .random-btn {
-        background: #ddd6fe;
-        color: #5b21b6;
-      }
-
-      .action-btn {
-        background: #111827;
-        color: white;
-        padding: 12px 16px;
-        border-radius: 12px;
-        font-size: 14px;
-      }
-
-      .action-btn.secondary {
-        background: #e5e7eb;
-        color: #111827;
-      }
-
-      .trainer-box {
-        text-align: center;
-        padding: 24px 8px 8px;
-      }
-
-      .trainer-title {
-        margin: 0 0 10px;
-        font-size: 28px;
-      }
-
-      .trainer-subtitle {
-        margin: 0;
-        color: #6b7280;
-        line-height: 1.5;
-      }
-
-      .trainer-placeholder {
-        margin-top: 22px;
-        padding: 18px;
-        border-radius: 18px;
-        background: #f9fafb;
-        border: 1px solid #ececf1;
+      .topic-btn, .subtopic-btn, .mode-btn, .action-btn {
+        border: none;
+        border-radius: 16px;
+        padding: 20px 16px;
+        font-size: 15px;
+        font-weight: 600;
+        line-height: 1.35;
+        cursor: pointer;
+        transition: transform 0.12s ease, opacity 0.12s ease;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
         text-align: left;
       }
 
-      .trainer-placeholder h3 {
-        margin-top: 0;
-        margin-bottom: 10px;
+      .btn-icon { font-size: 18px; opacity: 0.9; margin-left: 12px; flex-shrink: 0; }
+
+      .topic-btn:hover, .subtopic-btn:hover, .mode-btn:hover, .action-btn:hover { transform: translateY(-1px); }
+      .topic-btn, .subtopic-btn, .mode-btn { background: #ede9fe; color: #4c1d95; }
+      .random-btn { background: #ddd6fe; color: #5b21b6; }
+
+      .action-btn { background: #111827; color: white; padding: 12px 16px; border-radius: 12px; font-size: 14px; }
+      .action-btn.secondary { background: #e5e7eb; color: #111827; }
+
+      .trainer-box { text-align: center; padding: 24px 8px 8px; }
+      .trainer-title { margin: 0 0 10px; font-size: 28px; }
+      .trainer-subtitle { margin: 0; color: #6b7280; line-height: 1.5; }
+      .trainer-placeholder { margin-top: 22px; padding: 18px; border-radius: 18px; background: #f9fafb; border: 1px solid #ececf1; text-align: left; }
+      .trainer-placeholder h3 { margin-top: 0; margin-bottom: 10px; font-size: 18px; }
+      .trainer-placeholder p { margin: 8px 0; color: #4b5563; line-height: 1.5; }
+
+      .breadcrumbs { margin-top: 6px; margin-bottom: 18px; color: #8b5cf6; font-size: 13px; font-weight: 600; }
+
+      /* ══════════════════════════════
+         ТЕОРИЯ — новые стили
+         ══════════════════════════════ */
+
+      .theory-page {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        background: #f5f5f7;
+      }
+
+      /* ── верхняя панель ── */
+      .theory-topbar {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: #fff;
+        border-bottom: 1px solid #e5e7eb;
+        padding: 14px 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        box-shadow: 0 1px 10px rgba(0,0,0,0.07);
+      }
+
+      .theory-topbar-info h2 {
+        margin: 0;
         font-size: 18px;
+        font-weight: 700;
+        color: #111827;
       }
 
-      .trainer-placeholder p {
-        margin: 8px 0;
-        color: #4b5563;
-        line-height: 1.5;
-      }
-
-      .theory-layout {
-  display: grid;
-  grid-template-columns: 240px 1fr;
-  gap: 20px;
-  align-items: start;
-}
-
-.theory-menu {
-  position: sticky;
-  top: 90px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.theory-menu a {
-  text-decoration: none;
-  color: #5b21b6;
-  background: #ede9fe;
-  padding: 10px 12px;
-  border-radius: 12px;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.theory-content {
-  background: #ffffff;
-  border-radius: 20px;
-  padding: 24px;
-  box-shadow: 0 4px 18px rgba(0,0,0,0.06);
-}
-
-.theory-section {
-  margin-bottom: 32px;
-}
-
-      html {
-  scroll-padding-top: 140px;
-}
-
-.theory-section {
-  scroll-margin-top: 140px;
-}
-.theory-section h3 {
-  margin: 0 0 14px;
-  font-size: 22px;
-  color: #111827;
-}
-
-.theory-list {
-  margin: 0;
-  padding-left: 22px;
-}
-
-.theory-list li {
-  margin-bottom: 10px;
-  line-height: 1.55;
-  color: #374151;
-}
-
-@media (max-width: 900px) {
-  .theory-layout {
-    grid-template-columns: 1fr;
-  }
-
-  .theory-menu {
-    position: static;
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-
-  .theory-menu a {
-    font-size: 13px;
-  }
-}
-      .breadcrumbs {
-        margin-top: 6px;
-        margin-bottom: 18px;
-        color: #8b5cf6;
+      .theory-topbar-info p {
+        margin: 3px 0 0;
+        color: #6b7280;
         font-size: 13px;
-        font-weight: 600;
       }
 
-      @media (max-width: 720px) {
-        .grid {
-          grid-template-columns: 1fr;
-        }
+      .theory-topbar-btns { display: flex; gap: 8px; flex-shrink: 0; }
 
-        .header-row {
-          flex-direction: column;
-          align-items: stretch;
-        }
+      /* отдельные кнопки для теории (без конфликта с .nav-actions mobile fix) */
+      .theory-btn {
+        border: none;
+        border-radius: 10px;
+        padding: 9px 16px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: opacity 0.15s;
+        background: #111827;
+        color: #fff;
+        white-space: nowrap;
+      }
+      .theory-btn:hover { opacity: 0.82; }
+      .theory-btn.secondary { background: #e5e7eb; color: #111827; }
+
+      /* ── боковое меню + контент ── */
+      .theory-body { display: flex; flex: 1; }
+
+      .theory-sidebar {
+        width: 220px;
+        flex-shrink: 0;
+        position: sticky;
+        top: 69px;                    /* высота topbar (14+14+41=69px) */
+        height: calc(100vh - 69px);
+        overflow-y: auto;
+        padding: 18px 10px 40px;
+        background: #fff;
+        border-right: 1px solid #e5e7eb;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .theory-sidebar-label {
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: #9ca3af;
+        padding: 0 10px;
+        margin: 0 0 10px;
+      }
+
+      .theory-nav-link {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 9px 10px;
+        border-radius: 10px;
+        color: #6b7280;
+        font-size: 12.5px;
+        font-weight: 500;
+        line-height: 1.45;
+        cursor: pointer;
+        border: none;
+        background: transparent;
+        text-align: left;
+        width: 100%;
+        transition: background 0.15s, color 0.15s;
+      }
+      .theory-nav-link:hover  { background: #f3e8ff; color: #5b21b6; }
+      .theory-nav-link.active { background: #ede9fe; color: #4c1d95; font-weight: 700; }
+
+      .theory-nav-num {
+        font-size: 11px;
+        color: #a78bfa;
+        font-weight: 700;
+        min-width: 16px;
+        padding-top: 1px;
+        flex-shrink: 0;
+      }
+
+      /* ── основной контент ── */
+      .theory-content { flex: 1; padding: 36px 32px 80px; }
+
+      .theory-section {
+        margin-bottom: 60px;
+        scroll-margin-top: 82px;      /* отступ под topbar */
+      }
+
+      .theory-section-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 18px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid #ede9fe;
+      }
+
+      .theory-section-emoji { font-size: 24px; line-height: 1; flex-shrink: 0; }
+
+      .theory-section-title {
+        margin: 0;
+        font-size: 18px;
+        color: #3b0764;
+        font-weight: 700;
+      }
+
+      .theory-term-card {
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        padding: 13px 16px;
+        background: #fff;
+        border-radius: 14px;
+        border: 1px solid #ede9fe;
+        margin-bottom: 8px;
+        transition: border-color 0.15s;
+      }
+      .theory-term-card:hover { border-color: #c4b5fd; }
+
+      .theory-term-index {
+        color: #a78bfa;
+        font-weight: 700;
+        font-size: 12px;
+        min-width: 20px;
+        padding-top: 3px;
+        flex-shrink: 0;
+        text-align: right;
+      }
+
+      .theory-term-body { flex: 1; font-size: 14px; line-height: 1.65; color: #374151; }
+      .theory-term-name  { font-weight: 700; color: #111827; }
+      .theory-term-dash  { color: #9ca3af; margin: 0 4px; }
+
+      /* ── адаптив ── */
+      @media (max-width: 720px) {
+        .grid { grid-template-columns: 1fr; }
+        .header-row { flex-direction: column; align-items: stretch; }
+        .nav-actions { justify-content: stretch; }
+        .action-btn { width: 100%; }
+        .title { font-size: 26px; }
 
         .nav-actions {
-          justify-content: stretch;
+          position: fixed;
+          bottom: 0; left: 0; right: 0;
+          display: flex;
+          gap: 12px;
+          padding: 12px 16px;
+          background: #fff;
+          justify-content: center;
+          box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
         }
+        .nav-actions .action-btn { flex: 1; max-width: 200px; }
+        .panel { padding-bottom: 80px; }
 
-        .action-btn {
+        /* теория на мобильных */
+        .theory-topbar { padding: 10px 16px; }
+        .theory-topbar-info h2 { font-size: 15px; }
+        .theory-topbar-info p { display: none; }
+        .theory-btn { padding: 7px 12px; font-size: 13px; }
+
+        .theory-body { flex-direction: column; }
+
+        .theory-sidebar {
           width: 100%;
+          height: auto;
+          position: sticky;
+          top: 51px;                  /* высота topbar на мобильных */
+          flex-direction: row;
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          overflow-y: hidden;
+          padding: 8px 12px;
+          border-right: none;
+          border-bottom: 1px solid #e5e7eb;
+          gap: 6px;
+          scrollbar-width: none;
+        }
+        .theory-sidebar::-webkit-scrollbar { display: none; }
+        .theory-sidebar-label { display: none; }
+        .theory-nav-link {
+          white-space: nowrap;
+          flex-shrink: 0;
+          padding: 6px 12px;
+          font-size: 12px;
+          align-items: center;
         }
 
-        .title {
-  font-size: 26px;
-}
-
-/* нижняя панель навигации на мобильных */
-.nav-actions {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-
-  display: flex;
-  gap: 12px;
-
-  padding: 12px 16px;
-  background: #ffffff;
-
-  justify-content: center;
-  box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
-}
-
-.nav-actions .action-btn {
-  flex: 1;
-  max-width: 200px;
-}
-
-.panel {
-  padding-bottom: 80px;
-}
-.theory-section {
-  scroll-margin-top: 100px;
-}
-</style>
+        .theory-content { padding: 20px 16px 60px; }
+        .theory-section { scroll-margin-top: 110px; /* topbar 51 + sidebar ~44 + зазор */ }
+      }
+    </style>
   </head>
   <body>
     <div id="app"></div>
 
     <script>
+      /* ══════════════════════════════════════════════════════
+         СТРУКТУРА КУРСА
+         ══════════════════════════════════════════════════════ */
       const structure = {
         "Биология как наука": "trainer",
         "Цитология": "trainer",
@@ -421,16 +412,16 @@
           "Кровь и лимфа": "trainer",
           "Иммунитет": "trainer",
           "Нервная система": {
-  "Общие термины нервной системы": "trainer",
-  "Типы нейронов и рецепторы": "trainer",
-  "Вегетативная нервная система": "trainer",
-  "Высшая нервная деятельность": "trainer",
-  "Головной мозг — основные структуры": "trainer",
-  "Кора больших полушарий": "trainer",
-  "Физиология мозга и рефлексы": "trainer",
-  "Смешанная тренировка": "mixed-topic",
-  "Теория": "theory"
-},
+            "Общие термины нервной системы": "trainer",
+            "Типы нейронов и рецепторы": "trainer",
+            "Вегетативная нервная система": "trainer",
+            "Высшая нервная деятельность": "trainer",
+            "Головной мозг — основные структуры": "trainer",
+            "Кора больших полушарий": "trainer",
+            "Физиология мозга и рефлексы": "trainer",
+            "Смешанная тренировка": "mixed-topic",
+            "Теория": "theory"
+          },
           "Анализаторы": "trainer",
           "Опорно-двигательный аппарат": "trainer",
           "Мочеполовая система": "trainer",
@@ -443,486 +434,322 @@
         "Эксперименты в биологии": "trainer",
         "Random": "random-all"
       };
-      
-const theoryContent = {
-  "Анатомия": {
-    "Нервная система": [
-      {
-        id: "general",
-        title: "1. Общие термины нервной системы",
-        items: [
-          "Нервная система — интегративная система организма, обеспечивающая восприятие, обработку информации и регуляцию деятельности органов.",
-          "Центральная нервная система (ЦНС) — отдел нервной системы, включающий головной и спинной мозг, осуществляющий анализ сигналов и координацию реакций.",
-          "Периферическая нервная система (ПНС) — совокупность нервов и ганглиев вне ЦНС, передающих импульсы между органами и мозгом.",
-          "Нейрон — специализированная возбудимая клетка нервной ткани, способная генерировать и проводить нервные импульсы.",
-          "Аксон — длинный отросток нейрона, по которому сигнал передаётся от тела клетки к другим клеткам.",
-          "Дендрит — короткий ветвящийся отросток нейрона, принимающий сигналы от других клеток.",
-          "Синапс — специализированное соединение между клетками, обеспечивающее передачу нервного импульса.",
-          "Нейроглия — вспомогательные клетки нервной ткани, выполняющие защитные, трофические и изолирующие функции.",
-          "Ганглии — скопления тел нейронов, расположенные вне центральной нервной системы.",
-          "Нерв — анатомический пучок нервных волокон, проводящий импульсы в периферической нервной системе.",
-          "Серое вещество — скопление тел нейронов, участвующее в обработке информации.",
-          "Белое вещество — проводящие пути, образованные аксонами нейронов."
-        ]
-      },
-      {
-        id: "neurons",
-        title: "2. Типы нейронов, рецепторы",
-        items: [
-          "Чувствительные (центростремительные) нейроны — нейроны, проводящие импульсы от рецепторов к центральной нервной системе.",
-          "Двигательные (центробежные) нейроны — нейроны, передающие команды от центральной нервной системы к исполнительным органам.",
-          "Смешанные нервы — нервы, содержащие как чувствительные, так и двигательные волокна.",
-          "Двигательные нервы — нервы, образованные аксонами двигательных нейронов и проводящие сигналы к мышцам.",
-          "Чувствительные нервы — нервы, состоящие из чувствительных волокон, передающих информацию к мозгу.",
-          "Рецепторы — специализированные структуры, воспринимающие раздражения и преобразующие их в нервные импульсы.",
-          "Экстерорецепторы — рецепторы, реагирующие на стимулы внешней среды.",
-          "Интерорецепторы — рецепторы внутренних органов, контролирующие состояние организма.",
-          "Проприорецепторы — рецепторы мышц и суставов, определяющие положение тела."
-        ]
-      },
-      {
-        id: "autonomic",
-        title: "3. Вегетативная нервная система",
-        items: [
-          "Вегетативная нервная система — отдел нервной системы, регулирующий работу внутренних органов и поддерживающий гомеостаз.",
-          "Симпатическая нервная система — часть вегетативной нервной системы, активизирующаяся при стрессовых ситуациях.",
-          "Парасимпатическая нервная система — часть вегетативной нервной системы, обеспечивающая восстановительные процессы организма.",
-          "Блуждающий нерв — крупнейший парасимпатический нерв, иннервирующий органы грудной и брюшной полости.",
-          "Спинной мозг — отдел центральной нервной системы, выполняющий рефлекторную и проводниковую функции.",
-          "Восходящие проводящие пути — системы волокон, передающие чувствительную информацию к головному мозгу.",
-          "Нисходящие проводящие пути — системы волокон, проводящие двигательные команды от мозга."
-        ]
-      },
-      {
-        id: "higher",
-        title: "4. Высшая нервная деятельность",
-        items: [
-          "Первая сигнальная система — система реакций на непосредственные сенсорные раздражители.",
-          "Вторая сигнальная система — речевая система человека, основанная на использовании словесных сигналов.",
-          "Принцип доминанты — устойчивый очаг возбуждения в центральной нервной системе, определяющий поведение.",
-          "Навык — автоматизированное действие, сформированное в процессе многократного повторения.",
-          "Инстинкт — врождённая форма поведения, направленная на сохранение вида.",
-          "Внутреннее условное торможение — форма торможения, возникающая в коре головного мозга при обучении.",
-          "Внешнее безусловное торможение — торможение, возникающее под влиянием сильного нового раздражителя."
-        ]
-      },
-      {
-        id: "brain",
-        title: "5. Головной мозг – основные структуры",
-        items: [
-          "Продолговатый мозг — нижний отдел ствола мозга, содержащий жизненно важные центры.",
-          "Мост — отдел ствола мозга, соединяющий продолговатый и средний мозг.",
-          "Средний мозг — отдел ствола мозга, участвующий в ориентировочных реакциях.",
-          "Четверохолмие — структура среднего мозга, связанная со зрительными и слуховыми рефлексами.",
-          "Красное ядро — подкорковое образование, участвующее в регуляции движений.",
-          "Чёрная субстанция — дофаминергическая структура среднего мозга, регулирующая двигательную активность.",
-          "Мозжечок — отдел мозга, обеспечивающий координацию движений и равновесие.",
-          "Промежуточный мозг — отдел мозга, включающий таламус и гипоталамус.",
-          "Таламус — подкорковый центр чувствительности.",
-          "Гипоталамус — высший центр вегетативной регуляции.",
-          "Гипофиз — центральная железа внутренней секреции.",
-          "Эпифиз — железа, синтезирующая мелатонин."
-        ]
-      },
-      {
-        id: "cortex",
-        title: "6. Кора больших полушарий",
-        items: [
-          "Конечный мозг — наиболее развитый отдел центральной нервной системы.",
-          "Кора больших полушарий — слой серого вещества, обеспечивающий высшую нервную деятельность.",
-          "Извилина — выпуклый участок поверхности коры.",
-          "Борозда — углубление, разделяющее извилины.",
-          "Лобная доля — область коры, связанная с произвольными движениями и речью.",
-          "Теменная доля — область коры, обрабатывающая соматосенсорную информацию.",
-          "Затылочная доля — зрительный центр коры.",
-          "Височная доля — область коры, связанная со слухом и памятью.",
-          "Мозолистое тело — крупный пучок волокон, соединяющий полушария мозга.",
-          "Комиссуральные волокна — нервные волокна, соединяющие симметричные участки полушарий."
-        ]
-      },
-      {
-        id: "physiology",
-        title: "7. Физиология мозга и рефлексы",
-        items: [
-          "Анализатор — система, включающая рецепторы, проводящие пути и корковый центр.",
-          "Центральный отдел анализатора — участок коры, осуществляющий анализ сигнала.",
-          "Пирамидная система — система нисходящих двигательных путей.",
-          "Экстрапирамидная система — система структур, регулирующих автоматизм движений.",
-          "Высшая нервная деятельность — совокупность процессов, лежащих в основе мышления и поведения.",
-          "Условный рефлекс — приобретённая реакция, формирующаяся в процессе обучения.",
-          "Безусловный рефлекс — врождённая реакция организма.",
-          "Медленный сон — фаза сна, характеризующаяся снижением активности мозга и восстановлением организма.",
-          "Быстрый сон — фаза сна с высокой активностью мозга и появлением сновидений."
-        ]
-      }
-    ]
-  }
-};
-      const trainingData = {
-  "Анатомия": {
-    "Нервная система": {
-      "Общие термины нервной системы": {
-        "yes-no": [
-          {
-            question: "Белое вещество — проводящие пути, образованные аксонами нейронов.",
-            answer: true
-          },
-          {
-            question: "Нейроглия — вспомогательные клетки нервной ткани, выполняющие защитные, трофические и изолирующие функции.",
-            answer: true
-          },
-          {
-            question: "Аксон — короткий ветвящийся отросток нейрона, принимающий сигналы от других клеток.",
-            answer: false
-          },
-          {
-            question: "Нервная система — совокупность органов, обеспечивающих восприятие и передачу импульсов без участия регуляции деятельности органов.",
-            answer: false
-          },
-          {
-            question: "Серое вещество — скопление тел нейронов, участвующее в обработке информации.",
-            answer: true
-          },
-          {
-            question: "Ганглии — скопления тел нейронов, расположенные вне центральной нервной системы.",
-            answer: true
-          },
-          {
-            question: "Дендрит — длинный отросток нейрона, по которому сигнал передаётся от тела клетки к другим клеткам.",
-            answer: false
-          },
-          {
-            question: "Периферическая нервная система (ПНС) — совокупность нервов и ганглиев вне ЦНС, передающих импульсы между органами и мозгом.",
-            answer: true
-          },
-          {
-            question: "Синапс — контакт между клетками, выполняющий главным образом опорную и защитную функцию.",
-            answer: false
-          },
-          {
-            question: "Нейрон — специализированная возбудимая клетка нервной ткани, способная генерировать и проводить нервные импульсы.",
-            answer: true
-          },
-          {
-            question: "Центральная нервная система (ЦНС) — отдел нервной системы, включающий головной и спинной мозг, обеспечивающий проведение импульсов между органами и мышцами.",
-            answer: false
-          },
-          {
-            question: "Нерв — анатомический пучок нервных волокон, проводящий импульсы в периферической нервной системе.",
-            answer: true
-          }
-        ]
-      }
-    }
-  }
-};
+
       const trainingModes = [
-        { key: "yes-no", label: "Да / Нет" },
-        { key: "choice-4", label: "Выбор из 4 вариантов" },
+        { key: "yes-no",            label: "Да / Нет" },
+        { key: "choice-4",          label: "Выбор из 4 вариантов" },
         { key: "close-definitions", label: "Найти правильное определение" },
-        { key: "write-term", label: "Написание термина" },
-        { key: "random-mode", label: "Смешанная тренировка" }
+        { key: "write-term",        label: "Написание термина" },
+        { key: "random-mode",       label: "Смешанная тренировка" }
       ];
 
+      /* ══════════════════════════════════════════════════════
+         ТЕОРИЯ: НЕРВНАЯ СИСТЕМА
+         ══════════════════════════════════════════════════════ */
+      const theoryContent = {
+        "Нервная система": [
+          {
+            id: "theory-ns-1",
+            emoji: "🔬",
+            title: "Общие термины нервной системы",
+            terms: [
+              { term: "Нервная система",                       def: "интегративная система организма, обеспечивающая восприятие, обработку информации и регуляцию деятельности органов" },
+              { term: "Центральная нервная система (ЦНС)",     def: "отдел нервной системы, включающий головной и спинной мозг, осуществляющий анализ сигналов и координацию реакций" },
+              { term: "Периферическая нервная система (ПНС)",  def: "совокупность нервов и ганглиев вне ЦНС, передающих импульсы между органами и мозгом" },
+              { term: "Нейрон",      def: "специализированная возбудимая клетка нервной ткани, способная генерировать и проводить нервные импульсы" },
+              { term: "Аксон",       def: "длинный отросток нейрона, по которому сигнал передаётся от тела клетки к другим клеткам" },
+              { term: "Дендрит",     def: "короткий ветвящийся отросток нейрона, принимающий сигналы от других клеток" },
+              { term: "Синапс",      def: "специализированное соединение между клетками, обеспечивающее передачу нервного импульса" },
+              { term: "Нейроглия",   def: "вспомогательные клетки нервной ткани, выполняющие защитные, трофические и изолирующие функции" },
+              { term: "Ганглии",     def: "скопления тел нейронов, расположенные вне центральной нервной системы" },
+              { term: "Нерв",        def: "анатомический пучок нервных волокон, проводящий импульсы в периферической нервной системе" },
+              { term: "Серое вещество", def: "скопление тел нейронов, участвующее в обработке информации" },
+              { term: "Белое вещество", def: "проводящие пути, образованные аксонами нейронов" }
+            ]
+          },
+          {
+            id: "theory-ns-2",
+            emoji: "⚡",
+            title: "Типы нейронов и рецепторы",
+            terms: [
+              { term: "Чувствительные (центростремительные) нейроны", def: "нейроны, проводящие импульсы от рецепторов к центральной нервной системе" },
+              { term: "Двигательные (центробежные) нейроны",          def: "нейроны, передающие команды от центральной нервной системы к исполнительным органам" },
+              { term: "Смешанные нервы",     def: "нервы, содержащие как чувствительные, так и двигательные волокна" },
+              { term: "Двигательные нервы",  def: "нервы, образованные аксонами двигательных нейронов и проводящие сигналы к мышцам" },
+              { term: "Чувствительные нервы", def: "нервы, состоящие из чувствительных волокон, передающих информацию к мозгу" },
+              { term: "Рецепторы",           def: "специализированные структуры, воспринимающие раздражения и преобразующие их в нервные импульсы" },
+              { term: "Экстерорецепторы",    def: "рецепторы, реагирующие на стимулы внешней среды" },
+              { term: "Интерорецепторы",     def: "рецепторы внутренних органов, контролирующие состояние организма" },
+              { term: "Проприорецепторы",    def: "рецепторы мышц и суставов, определяющие положение тела" }
+            ]
+          },
+          {
+            id: "theory-ns-3",
+            emoji: "🫀",
+            title: "Вегетативная нервная система",
+            terms: [
+              { term: "Вегетативная нервная система",      def: "отдел нервной системы, регулирующий работу внутренних органов и поддерживающий гомеостаз" },
+              { term: "Симпатическая нервная система",     def: "часть вегетативной нервной системы, активизирующаяся при стрессовых ситуациях" },
+              { term: "Парасимпатическая нервная система", def: "часть вегетативной нервной системы, обеспечивающая восстановительные процессы организма" },
+              { term: "Блуждающий нерв",              def: "крупнейший парасимпатический нерв, иннервирующий органы грудной и брюшной полости" },
+              { term: "Спинной мозг",                 def: "отдел центральной нервной системы, выполняющий рефлекторную и проводниковую функции" },
+              { term: "Восходящие проводящие пути",   def: "системы волокон, передающие чувствительную информацию к головному мозгу" },
+              { term: "Нисходящие проводящие пути",   def: "системы волокон, проводящие двигательные команды от мозга" }
+            ]
+          },
+          {
+            id: "theory-ns-4",
+            emoji: "🧩",
+            title: "Высшая нервная деятельность",
+            terms: [
+              { term: "Первая сигнальная система",          def: "система реакций на непосредственные сенсорные раздражители" },
+              { term: "Вторая сигнальная система",          def: "речевая система человека, основанная на использовании словесных сигналов" },
+              { term: "Принцип доминанты",                  def: "устойчивый очаг возбуждения в центральной нервной системе, определяющий поведение" },
+              { term: "Навык",                              def: "автоматизированное действие, сформированное в процессе многократного повторения" },
+              { term: "Инстинкт",                           def: "врождённая форма поведения, направленная на сохранение вида" },
+              { term: "Внутреннее условное торможение",     def: "форма торможения, возникающая в коре головного мозга при обучении" },
+              { term: "Внешнее безусловное торможение",     def: "торможение, возникающее под влиянием сильного нового раздражителя" }
+            ]
+          },
+          {
+            id: "theory-ns-5",
+            emoji: "🧠",
+            title: "Головной мозг — основные структуры",
+            terms: [
+              { term: "Продолговатый мозг",  def: "нижний отдел ствола мозга, содержащий жизненно важные центры" },
+              { term: "Мост",                def: "отдел ствола мозга, соединяющий продолговатый и средний мозг" },
+              { term: "Средний мозг",        def: "отдел ствола мозга, участвующий в ориентировочных реакциях" },
+              { term: "Четверохолмие",       def: "структура среднего мозга, связанная со зрительными и слуховыми рефлексами" },
+              { term: "Красное ядро",        def: "подкорковое образование, участвующее в регуляции движений" },
+              { term: "Чёрная субстанция",   def: "дофаминергическая структура среднего мозга, регулирующая двигательную активность" },
+              { term: "Мозжечок",            def: "отдел мозга, обеспечивающий координацию движений и равновесие" },
+              { term: "Промежуточный мозг",  def: "отдел мозга, включающий таламус и гипоталамус" },
+              { term: "Таламус",             def: "подкорковый центр чувствительности" },
+              { term: "Гипоталамус",         def: "высший центр вегетативной регуляции" },
+              { term: "Гипофиз",             def: "центральная железа внутренней секреции" },
+              { term: "Эпифиз",              def: "железа, синтезирующая мелатонин" }
+            ]
+          },
+          {
+            id: "theory-ns-6",
+            emoji: "🌀",
+            title: "Кора больших полушарий",
+            terms: [
+              { term: "Конечный мозг",               def: "наиболее развитый отдел центральной нервной системы" },
+              { term: "Кора больших полушарий",       def: "слой серого вещества, обеспечивающий высшую нервную деятельность" },
+              { term: "Извилина",                    def: "выпуклый участок поверхности коры" },
+              { term: "Борозда",                     def: "углубление, разделяющее извилины" },
+              { term: "Лобная доля",                 def: "область коры, связанная с произвольными движениями и речью" },
+              { term: "Теменная доля",               def: "область коры, обрабатывающая соматосенсорную информацию" },
+              { term: "Затылочная доля",             def: "зрительный центр коры" },
+              { term: "Височная доля",               def: "область коры, связанная со слухом и памятью" },
+              { term: "Мозолистое тело",             def: "крупный пучок волокон, соединяющий полушария мозга" },
+              { term: "Комиссуральные волокна",      def: "нервные волокна, соединяющие симметричные участки полушарий" }
+            ]
+          },
+          {
+            id: "theory-ns-7",
+            emoji: "⚗️",
+            title: "Физиология мозга и рефлексы",
+            terms: [
+              { term: "Анализатор",                    def: "система, включающая рецепторы, проводящие пути и корковый центр" },
+              { term: "Центральный отдел анализатора", def: "участок коры, осуществляющий анализ сигнала" },
+              { term: "Пирамидная система",            def: "система нисходящих двигательных путей" },
+              { term: "Экстрапирамидная система",      def: "система структур, регулирующих автоматизм движений" },
+              { term: "Высшая нервная деятельность",   def: "совокупность процессов, лежащих в основе мышления и поведения" },
+              { term: "Условный рефлекс",              def: "приобретённая реакция, формирующаяся в процессе обучения" },
+              { term: "Безусловный рефлекс",           def: "врождённая реакция организма" },
+              { term: "Медленный сон",                 def: "фаза сна, характеризующаяся снижением активности мозга и восстановлением организма" },
+              { term: "Быстрый сон",                   def: "фаза сна с высокой активностью мозга и появлением сновидений" }
+            ]
+          }
+        ]
+      };
+
+      /* ══════════════════════════════════════════════════════
+         СОСТОЯНИЕ
+         ══════════════════════════════════════════════════════ */
       const state = {
-  screen: "welcome",
-  history: [],
-  currentSection: null,
-  currentTopic: null,
-  trainerContext: null
-};
+        screen: "welcome",
+        history: [],
+        currentSection: null,
+        currentTopic: null,
+        trainerContext: null
+      };
 
-const savedState = localStorage.getItem("bioState");
-
-if (savedState) {
-  Object.assign(state, JSON.parse(savedState));
-}
+      const savedState = localStorage.getItem("bioState");
+      if (savedState) {
+        Object.assign(state, JSON.parse(savedState));
+      }
 
       const app = document.getElementById("app");
 
+      /* ══════════════════════════════════════════════════════
+         ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
+         ══════════════════════════════════════════════════════ */
       function pushHistory(snapshot) {
-  state.history.push(JSON.parse(JSON.stringify(snapshot)));
-}
+        state.history.push(JSON.parse(JSON.stringify(snapshot)));
+      }
 
-function getIcon(name) {
-  const icons = {
-    // Разделы
-    "Биология как наука": "🔬",
-    "Цитология": "🧫",
-    "Химический состав клетки": "⚗️",
-    "Обмен веществ": "🔄",
-    "Синтез белка": "🧬",
-    "Деление клеток": "➗",
-    "Размножение": "🌱",
-    "Экология": "🌍",
-    "Биосфера": "🌎",
-    "Сукцессия": "🌿",
-    "Эволюция": "🦕",
-    "Антропогенез": "🧍",
-    "Происхождение жизни на Земле": "🌋",
-    "Генетика": "🧬",
-    "Селекция": "🌾",
-    "Ботаника": "🌱",
-    "Зоология": "🐾",
-    "Анатомия": "🫀",
-    "Прочие царства": "🍄",
-    "Эксперименты в биологии": "🧪",
+      function escapeHtml(text) {
+        return String(text)
+          .replaceAll("&", "&amp;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;");
+      }
 
-    // Обмен веществ
-    "Энергетический обмен": "⚡",
-    "Фотосинтез и хемосинтез": "☀️",
-    "Матричные процессы": "📜",
+      function getIcon(name) {
+        const icons = {
+          "Биология как наука": "🔬", "Цитология": "🧫", "Химический состав клетки": "⚗️",
+          "Обмен веществ": "🔄", "Синтез белка": "🧬", "Деление клеток": "➗",
+          "Размножение": "🌱", "Экология": "🌍", "Биосфера": "🌎", "Сукцессия": "🌿",
+          "Эволюция": "🦕", "Антропогенез": "🧍", "Происхождение жизни на Земле": "🌋",
+          "Генетика": "🧬", "Селекция": "🌾", "Ботаника": "🌱", "Зоология": "🐾",
+          "Анатомия": "🫀", "Прочие царства": "🍄", "Эксперименты в биологии": "🧪",
+          "Энергетический обмен": "⚡", "Фотосинтез и хемосинтез": "☀️", "Матричные процессы": "📜",
+          "Экологические факторы": "🌤", "Среды жизни": "🏞", "Взаимодействие организмов": "🤝",
+          "Экосистемы": "🌲", "Пищевые цепи": "🔗", "Биомы": "🗺",
+          "Биосфера. Круговорот веществ": "♻️", "Биогеоценоз и агроценоз": "🌾",
+          "Экологические проблемы": "⚠️",
+          "Ткани растений": "🌿", "Вегетативные органы растений": "🍃", "Водоросли": "🪸",
+          "Мхи": "🌱", "Хвощи, плауны, папоротники": "🌾", "Голосеменные": "🌲",
+          "Покрытосеменные": "🌸", "Агротехника": "🚜", "Фитогормоны": "🧪",
+          "Систематика растений": "📚",
+          "Простейшие": "🦠", "Кишечнополостные": "🪼",
+          "Черви-паразиты: плоские, круглые и кольчатые": "🪱", "Членистоногие": "🦗",
+          "Моллюски": "🐚", "Рыбы и низшие хордовые": "🐟", "Земноводные": "🐸",
+          "Пресмыкающиеся": "🦎", "Птицы": "🐦", "Млекопитающие": "🐾",
+          "Систематика животных": "📚",
+          "Ткани человека": "🧫", "Пищеварительная система": "🍽", "Дыхательная система": "🫁",
+          "Сердечно-сосудистая система": "🫀", "Кровь и лимфа": "🩸", "Иммунитет": "🛡",
+          "Нервная система": "🧠", "Анализаторы": "👁", "Опорно-двигательный аппарат": "🦴",
+          "Мочеполовая система": "💧", "Эндокринная система": "⚗️",
+          "Покровы и терморегуляция": "🌡", "Здоровье человека": "❤️",
+          "Да / Нет": "✔️", "Выбор из 4 вариантов": "🔢",
+          "Найти правильное определение": "📖", "Написание термина": "✍️",
+          "Смешанная тренировка": "🎲"
+        };
+        return icons[name] || "🧬";
+      }
 
-    // Экология
-    "Экологические факторы": "🌤",
-    "Среды жизни": "🏞",
-    "Взаимодействие организмов": "🤝",
-    "Экосистемы": "🌲",
-    "Пищевые цепи": "🔗",
-    "Биомы": "🗺",
-    "Биосфера. Круговорот веществ": "♻️",
-    "Биогеоценоз и агроценоз": "🌾",
-    "Экологические проблемы": "⚠️",
+      function getProgress() { return ""; }
 
-    // Ботаника
-    "Ткани растений": "🌿",
-    "Вегетативные органы растений": "🍃",
-    "Водоросли": "🪸",
-    "Мхи": "🌱",
-    "Хвощи, плауны, папоротники": "🌾",
-    "Голосеменные": "🌲",
-    "Покрытосеменные": "🌸",
-    "Агротехника": "🚜",
-    "Фитогормоны": "🧪",
-    "Систематика растений": "📚",
-
-    // Зоология
-    "Простейшие": "🦠",
-    "Кишечнополостные": "🪼",
-    "Черви-паразиты: плоские, круглые и кольчатые": "🪱",
-    "Членистоногие": "🦗",
-    "Моллюски": "🐚",
-    "Рыбы и низшие хордовые": "🐟",
-    "Земноводные": "🐸",
-    "Пресмыкающиеся": "🦎",
-    "Птицы": "🐦",
-    "Млекопитающие": "🐾",
-    "Систематика животных": "📚",
-
-    // Анатомия
-    "Ткани человека": "🧫",
-    "Пищеварительная система": "🍽",
-    "Дыхательная система": "🫁",
-    "Сердечно-сосудистая система": "🫀",
-    "Кровь и лимфа": "🩸",
-    "Иммунитет": "🛡",
-    "Нервная система": "🧠",
-    "Анализаторы": "👁",
-    "Опорно-двигательный аппарат": "🦴",
-    "Мочеполовая система": "💧",
-    "Эндокринная система": "⚗️",
-    "Покровы и терморегуляция": "🌡",
-    "Здоровье человека": "❤️",
-
-    // Режимы
-    "Да / Нет": "✔️",
-    "Выбор из 4 вариантов": "🔢",
-    "Найти правильное определение": "📖",
-    "Написание термина": "✍️",
-    "Смешанная тренировка": "🎲"
-  };
-
-  return icons[name] || "🧬";
-}
-
-function getProgress(name) {
-  return "";
-}
-
-function goBack() {
+      /* ══════════════════════════════════════════════════════
+         НАВИГАЦИЯ
+         ══════════════════════════════════════════════════════ */
+      function goBack() {
         if (state.history.length === 0) return;
         const prev = state.history.pop();
-        state.screen = prev.screen;
+        state.screen        = prev.screen;
         state.currentSection = prev.currentSection;
-        state.currentTopic = prev.currentTopic;
+        state.currentTopic  = prev.currentTopic;
         state.trainerContext = prev.trainerContext;
         render();
       }
 
       function goHome() {
-        state.screen = "sections";
+        state.screen        = "sections";
         state.currentSection = null;
-        state.currentTopic = null;
+        state.currentTopic  = null;
         state.trainerContext = null;
-        state.history = [{ screen: "welcome", currentSection: null, currentTopic: null, trainerContext: null }];
+        state.history       = [{ screen: "welcome", currentSection: null, currentTopic: null, trainerContext: null }];
         render();
       }
 
       function openSections() {
-        pushHistory({
-          screen: state.screen,
-          currentSection: state.currentSection,
-          currentTopic: state.currentTopic,
-          trainerContext: state.trainerContext
-        });
-
-        state.screen = "sections";
+        pushHistory({ screen: state.screen, currentSection: state.currentSection, currentTopic: state.currentTopic, trainerContext: state.trainerContext });
+        state.screen        = "sections";
         state.currentSection = null;
-        state.currentTopic = null;
+        state.currentTopic  = null;
         state.trainerContext = null;
-
-localStorage.setItem("welcomeSeen", "true");
-
-render();
+        localStorage.setItem("welcomeSeen", "true");
+        render();
       }
 
       function openSection(sectionName) {
         const value = structure[sectionName];
-
-        pushHistory({
-          screen: state.screen,
-          currentSection: state.currentSection,
-          currentTopic: state.currentTopic,
-          trainerContext: state.trainerContext
-        });
+        pushHistory({ screen: state.screen, currentSection: state.currentSection, currentTopic: state.currentTopic, trainerContext: state.trainerContext });
 
         if (value === "trainer") {
-          state.screen = "modes";
+          state.screen        = "modes";
           state.currentSection = sectionName;
-          state.currentTopic = sectionName;
-          state.trainerContext = {
-            type: "section-direct",
-            title: sectionName
-          };
+          state.currentTopic  = sectionName;
+          state.trainerContext = { type: "section-direct", title: sectionName };
         } else if (value === "random-all") {
-          state.screen = "trainer";
+          state.screen        = "trainer";
           state.currentSection = null;
-          state.currentTopic = null;
-          state.trainerContext = {
-            type: "random-all",
-            title: "Random по всем разделам"
-          };
+          state.currentTopic  = null;
+          state.trainerContext = { type: "random-all", title: "Random по всем разделам" };
         } else {
-          state.screen = "subtopics";
+          state.screen        = "subtopics";
           state.currentSection = sectionName;
+          state.currentTopic  = null;
+          state.trainerContext = null;
+        }
+        render();
+      }
+
+      function openSubtopic(subtopicName) {
+        const currentData = state.currentTopic
+          ? structure[state.currentSection][state.currentTopic]
+          : structure[state.currentSection];
+
+        let value;
+        if (subtopicName === "Смешанная тренировка") {
+          value = "mixed-topic";
+        } else if (subtopicName === "Теория") {
+          value = "theory";
+        } else {
+          value = currentData[subtopicName];
+        }
+
+        pushHistory({ screen: state.screen, currentSection: state.currentSection, currentTopic: state.currentTopic, trainerContext: state.trainerContext });
+
+        if (value === "trainer") {
+          state.screen       = "modes";
+          state.currentTopic = subtopicName;
+          state.trainerContext = null;
+
+        } else if (value === "mixed-topic") {
+          state.screen = "trainer";
+          state.trainerContext = { type: "random-mode", title: "Смешанная тренировка" };
+
+        } else if (value === "theory") {
+          /* ── открываем экран теории ── */
+          state.screen = "theory";
+          state.trainerContext = {
+            type:  "theory",
+            title: "Теория",
+            topic: state.currentTopic || state.currentSection   // "Нервная система"
+          };
+
+        } else if (value === "random-subtopics") {
+          state.screen       = "trainer";
           state.currentTopic = null;
+          state.trainerContext = { type: "random-subtopics", title: `Random по разделу ${state.currentSection}` };
+
+        } else if (typeof value === "object" && value !== null) {
+          state.screen       = "subtopics";
+          state.currentTopic = subtopicName;
           state.trainerContext = null;
         }
 
         render();
       }
 
-      function openSubtopic(subtopicName) {
-  const currentData = state.currentTopic
-    ? structure[state.currentSection][state.currentTopic]
-    : structure[state.currentSection];
-
-  let value;
-
-  if (subtopicName === "Смешанная тренировка") {
-    value = "mixed-topic";
-  } else if (subtopicName === "Теория") {
-    value = "theory";
-  } else {
-    value = currentData[subtopicName];
-  }
-
-  pushHistory({
-    screen: state.screen,
-    currentSection: state.currentSection,
-    currentTopic: state.currentTopic,
-    trainerContext: state.trainerContext
-  });
-
-  if (value === "trainer") {
-    state.screen = "modes";
-    state.currentTopic = subtopicName;
-    state.trainerContext = null;
-
-  } else if (value === "mixed-topic") {
-    state.screen = "trainer";
-    state.trainerContext = {
-      type: "random-mode",
-      title: "Смешанная тренировка"
-    };
-
- } else if (value === "theory") {
-  state.screen = "trainer";
-
-  if (state.currentTopic === "Нервная система") {
-    state.trainerContext = {
-      type: "theory",
-      title: "Теория"
-    };
-  } else {
-    state.trainerContext = {
-      type: "theory-placeholder",
-      title: "Теория"
-    };
-  }
-
-} else if (value === "random-subtopics") {
-    state.screen = "trainer";
-    state.currentTopic = null;
-    state.trainerContext = {
-      type: "random-subtopics",
-      title: `Random по разделу ${state.currentSection}`
-    };
-
-  } else if (typeof value === "object" && value !== null) {
-    state.screen = "subtopics";
-    state.currentTopic = subtopicName;
-    state.trainerContext = null;
-  }
-
-  render();
-}
-
       function openTrainingMode(modeKey, modeLabel) {
-        pushHistory({
-          screen: state.screen,
-          currentSection: state.currentSection,
-          currentTopic: state.currentTopic,
-          trainerContext: state.trainerContext
-        });
-
+        pushHistory({ screen: state.screen, currentSection: state.currentSection, currentTopic: state.currentTopic, trainerContext: state.trainerContext });
         state.screen = "trainer";
-
-        if (modeKey === "random-mode") {
-  state.trainerContext = {
-    type: "random-mode",
-    title: `Random: ${state.currentTopic}`,
-    mode: modeLabel
-  };
-} else {
-  state.trainerContext = {
-    type: "mode",
-    title: state.currentTopic,
-    mode: modeLabel,
-    currentQuestionIndex: 0,
-    correctAnswers: 0
-  };
-}
-
+        state.trainerContext = modeKey === "random-mode"
+          ? { type: "random-mode", title: `Random: ${state.currentTopic}`, mode: modeLabel }
+          : { type: "mode",        title: state.currentTopic,              mode: modeLabel };
         render();
       }
-      function answerYesNo(userAnswer) {
-  const questions =
-    trainingData?.["Анатомия"]?.["Нервная система"]?.["Общие термины нервной системы"]?.["yes-no"] || [];
 
-  const currentIndex = state.trainerContext.currentQuestionIndex || 0;
-  const currentQuestion = questions[currentIndex];
-
-  if (!currentQuestion) return;
-
-  if (userAnswer === currentQuestion.answer) {
-    state.trainerContext.correctAnswers =
-      (state.trainerContext.correctAnswers || 0) + 1;
-  }
-
-  state.trainerContext.currentQuestionIndex = currentIndex + 1;
-  render();
-}
+      /* ══════════════════════════════════════════════════════
+         РЕНДЕРЫ
+         ══════════════════════════════════════════════════════ */
 
       function renderWelcome() {
         app.innerHTML = `
@@ -932,15 +759,12 @@ render();
               <p class="subtitle">Регулярная тренировка помогает закреплять термины и понятия.</p>
               <div class="hint">Нажмите, чтобы начать тренировку</div>
             </div>
-          </div>
-        `;
-
+          </div>`;
         document.getElementById("welcomeTap").addEventListener("click", openSections);
       }
 
       function renderSections() {
-        const sections = Object.keys(structure);
-
+        const sections = Object.keys(structure).filter(s => s !== "Random");
         app.innerHTML = `
           <div class="screen">
             <div class="app-shell">
@@ -954,117 +778,86 @@ render();
                     <button class="action-btn secondary" id="backBtn">Назад</button>
                   </div>
                 </div>
-
                 <div class="grid">
-                  ${sections
-  .filter((section) => section !== "Random")
-.map(
-  (section) => `
-<button class="topic-btn" data-section="${escapeHtml(section)}">
-  <span class="btn-left">
-    <span class="btn-icon">${getIcon(section)}</span>
-    <span class="btn-title">${section}</span>
-  </span>
-
-  <span class="btn-progress">${getProgress(section)}</span>
-</button>
-`
-)
-.join("")}
-
-<div style="grid-column: 1 / -1; margin-top: 20px; display:flex; justify-content:center;">
-<button class="mode-btn random-btn" data-section="Random">
-  🎲 Смешанная тренировка
-</button>
-</div>
+                  ${sections.map(s => `
+                    <button class="topic-btn" data-section="${escapeHtml(s)}">
+                      <span class="btn-left">
+                        <span class="btn-icon">${getIcon(s)}</span>
+                        <span class="btn-title">${s}</span>
+                      </span>
+                      <span class="btn-progress">${getProgress(s)}</span>
+                    </button>`).join("")}
+                  <div style="grid-column:1/-1;margin-top:20px;display:flex;justify-content:center;">
+                    <button class="mode-btn random-btn" data-section="Random">🎲 Смешанная тренировка</button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        `;
-
+          </div>`;
         document.getElementById("backBtn").addEventListener("click", goBack);
-
-        document.querySelectorAll("[data-section]").forEach((btn) => {
-          btn.addEventListener("click", () => {
-            openSection(btn.getAttribute("data-section"));
-          });
-        });
+        document.querySelectorAll("[data-section]").forEach(btn =>
+          btn.addEventListener("click", () => openSection(btn.getAttribute("data-section"))));
       }
 
       function renderSubtopics() {
         const currentData = state.currentTopic
-  ? structure[state.currentSection][state.currentTopic]
-  : structure[state.currentSection];
+          ? structure[state.currentSection][state.currentTopic]
+          : structure[state.currentSection];
 
-const subtopics = Object.keys(currentData).filter(
-  (subtopic) =>
-    subtopic !== "Рандом" &&
-    subtopic !== "Смешанная тренировка" &&
-    subtopic !== "Теория"
-);
+        const subtopics = Object.keys(currentData).filter(k =>
+          k !== "Рандом" && k !== "Смешанная тренировка" && k !== "Теория");
+
+        /* показываем нижние кнопки только если они есть в структуре */
+        const hasMixed  = "Смешанная тренировка" in currentData;
+        const hasTheory = "Теория" in currentData;
 
         app.innerHTML = `
           <div class="screen">
             <div class="app-shell">
-             <div class="panel">
-  <div class="header-row">
-    <div class="header-text">
-      <h2>${state.currentSection}</h2>
-      <p>Выберите тему для тренировки.</p>
-    </div>
-    <div class="nav-actions">
-      <button class="action-btn secondary" id="backBtn">Назад</button>
-      <button class="action-btn" id="homeBtn">Главное меню</button>
-    </div>
-  </div>
-
-  <div class="grid" style="margin-top: 20px;">
-  ${subtopics
-    .filter(
-      (subtopic) =>
-        subtopic !== "Рандом" &&
-        subtopic !== "Смешанная тренировка" &&
-        subtopic !== "Теория"
-    )
-    .map(
-      (subtopic) => `
-<button class="subtopic-btn" data-subtopic="${escapeHtml(subtopic)}">
-  <span class="btn-left">
-    <span class="btn-icon">${getIcon(subtopic)}</span>
-    <span class="btn-title">${subtopic}</span>
-  </span>
-
-  <span class="btn-progress">${getProgress(subtopic)}</span>
-</button>
-`
-    )
-    .join("")}
-</div>
-
-<div style="display:flex; gap:12px; margin-top:20px; flex-wrap:wrap;">
-  <button class="mode-btn random-btn" data-subtopic="Смешанная тренировка" style="flex:1; min-width:220px;">
-    🎲 Смешанная тренировка
-  </button>
-
-  <button class="mode-btn random-btn" data-subtopic="Теория" style="flex:1; min-width:220px;">
-    📖 Теория
-  </button>
-</div>
+              <div class="panel">
+                <div class="header-row">
+                  <div class="header-text">
+                    <h2>${state.currentSection}</h2>
+                    <p>Выберите тему для тренировки.</p>
+                  </div>
+                  <div class="nav-actions">
+                    <button class="action-btn secondary" id="backBtn">Назад</button>
+                    <button class="action-btn" id="homeBtn">Главное меню</button>
+                  </div>
                 </div>
+
+                <div class="breadcrumbs">Раздел: ${state.currentSection}</div>
+
+                <div class="grid">
+                  ${subtopics.map(s => `
+                    <button class="subtopic-btn" data-subtopic="${escapeHtml(s)}">
+                      <span class="btn-left">
+                        <span class="btn-icon">${getIcon(s)}</span>
+                        <span class="btn-title">${s}</span>
+                      </span>
+                      <span class="btn-progress">${getProgress(s)}</span>
+                    </button>`).join("")}
+                </div>
+
+                ${(hasMixed || hasTheory) ? `
+                  <div style="display:flex;gap:12px;margin-top:20px;flex-wrap:wrap;">
+                    ${hasMixed ? `
+                      <button class="mode-btn random-btn" data-subtopic="Смешанная тренировка" style="flex:1;min-width:220px;">
+                        🎲 Смешанная тренировка
+                      </button>` : ""}
+                    ${hasTheory ? `
+                      <button class="mode-btn random-btn" data-subtopic="Теория" style="flex:1;min-width:220px;">
+                        📖 Теория
+                      </button>` : ""}
+                  </div>` : ""}
               </div>
             </div>
-          </div>
-        `;
+          </div>`;
 
         document.getElementById("backBtn").addEventListener("click", goBack);
         document.getElementById("homeBtn").addEventListener("click", goHome);
-
-        document.querySelectorAll("[data-subtopic]").forEach((btn) => {
-          btn.addEventListener("click", () => {
-            openSubtopic(btn.getAttribute("data-subtopic"));
-          });
-        });
+        document.querySelectorAll("[data-subtopic]").forEach(btn =>
+          btn.addEventListener("click", () => openSubtopic(btn.getAttribute("data-subtopic"))));
       }
 
       function renderModes() {
@@ -1082,121 +875,29 @@ const subtopics = Object.keys(currentData).filter(
                     <button class="action-btn" id="homeBtn">Главное меню</button>
                   </div>
                 </div>
-
                 <div class="breadcrumbs">
                   ${state.currentSection ? `${state.currentSection} → ` : ""}${state.currentTopic}
                 </div>
-
                 <div class="grid">
-                  ${trainingModes
-  .map(
-    (mode) => `
-<button class="mode-btn ${mode.key === "random-mode" ? "random-btn" : ""}" data-mode="${mode.key}" data-label="${mode.label}">
-  <span>${mode.label}</span>
-  <span class="btn-icon">${getIcon(mode.label)}</span>
-</button>
-`
-  )
-  .join("")}
+                  ${trainingModes.map(m => `
+                    <button class="mode-btn ${m.key === "random-mode" ? "random-btn" : ""}"
+                            data-mode="${m.key}" data-label="${m.label}">
+                      <span>${m.label}</span>
+                      <span class="btn-icon">${getIcon(m.label)}</span>
+                    </button>`).join("")}
                 </div>
               </div>
             </div>
-          </div>
-        `;
-
+          </div>`;
         document.getElementById("backBtn").addEventListener("click", goBack);
         document.getElementById("homeBtn").addEventListener("click", goHome);
-
-        document.querySelectorAll("[data-mode]").forEach((btn) => {
-          btn.addEventListener("click", () => {
-            openTrainingMode(btn.getAttribute("data-mode"), btn.getAttribute("data-label"));
-          });
-        });
+        document.querySelectorAll("[data-mode]").forEach(btn =>
+          btn.addEventListener("click", () =>
+            openTrainingMode(btn.getAttribute("data-mode"), btn.getAttribute("data-label"))));
       }
 
-      function renderTheory() {
-  const theory =
-  (theoryContent[state.currentSection] &&
-    theoryContent[state.currentSection][state.currentTopic]) || [];
-
-  app.innerHTML = `
-    <div class="screen">
-      <div class="app-shell">
-        <div class="panel">
-          <div class="header-row">
-            <div class="header-text">
-              <h2>Нервная система</h2>
-              <p>Теория по блокам. Выберите раздел в меню слева или прокрутите текст.</p>
-            </div>
-            <div class="nav-actions">
-              <button class="action-btn secondary" id="backBtn">Назад</button>
-              <button class="action-btn" id="homeBtn">Главное меню</button>
-            </div>
-          </div>
-
-          <div class="breadcrumbs">
-            Анатомия → Нервная система → Теория
-          </div>
-
-          <div class="theory-layout">
-            <div class="theory-menu">
-              ${theory
-                .map(
-                  (section) => `
-<a href="#${section.id}">${section.title}</a>
-`
-                )
-                .join("")}
-            </div>
-
-            <div class="theory-content">
-              ${theory
-                .map(
-                  (section) => `
-<section class="theory-section" id="${section.id}">
-  <h3>${section.title}</h3>
-  <ol class="theory-list">
-    ${section.items
-      .map((item) => `<li>${escapeHtml(item)}</li>`)
-      .join("")}
-  </ol>
-</section>
-`
-                )
-                .join("")}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  `;
-
-  document.getElementById("backBtn").addEventListener("click", goBack);
-  document.getElementById("homeBtn").addEventListener("click", goHome);
-}
       function renderTrainer() {
-        let heading = "";
-        let text = "";
-        let questions = [];
-let currentQuestion = null;
-let currentQuestionIndex = 0;
-let correctAnswers = 0;
-
-if (
-  state.currentSection === "Анатомия" &&
-  state.currentTopic === "Общие термины нервной системы" &&
-  state.trainerContext &&
-  state.trainerContext.type === "mode" &&
-  state.trainerContext.mode === "Да / Нет"
-) {
-  questions =
-    trainingData?.["Анатомия"]?.["Нервная система"]?.["Общие термины нервной системы"]?.["yes-no"] || [];
-
-  currentQuestionIndex = state.trainerContext.currentQuestionIndex || 0;
-  correctAnswers = state.trainerContext.correctAnswers || 0;
-  currentQuestion = questions[currentQuestionIndex] || null;
-}
-
+        let heading = "", text = "";
         if (state.trainerContext.type === "random-all") {
           heading = "Random по всем разделам";
           text = "Здесь позже появится смешанная тренировка по всем разделам биологии.";
@@ -1213,7 +914,6 @@ if (
           heading = `${state.trainerContext.title} — ${state.trainerContext.mode}`;
           text = "Здесь позже появится конкретный формат тренировки и реальные вопросы.";
         }
-
         app.innerHTML = `
           <div class="screen">
             <div class="app-shell">
@@ -1221,120 +921,150 @@ if (
                 <div class="header-row">
                   <div class="header-text">
                     <h2>${heading}</h2>
-                    <p>Структура готова. Следующим шагом можно добавлять наполнение заданий.</p>
+                    <p>Структура готова. Следующим шагом добавить наполнение заданий.</p>
                   </div>
                   <div class="nav-actions">
                     <button class="action-btn secondary" id="backBtn">Назад</button>
                     <button class="action-btn" id="homeBtn">Главное меню</button>
                   </div>
                 </div>
-
-                <div class="breadcrumbs">
-                  ${buildBreadcrumbs()}
-                </div>
-
+                <div class="breadcrumbs">${buildBreadcrumbs()}</div>
                 <div class="trainer-box">
                   <h3 class="trainer-title">Тренажёр</h3>
                   <p class="trainer-subtitle">Пока это экран-заглушка для выбранного режима.</p>
-
-                <div class="trainer-placeholder">
-  ${
-    questions.length > 0
-      ? currentQuestion
-        ? `
-        <h3>Вопрос ${currentQuestionIndex + 1} из ${questions.length}</h3>
-        <p style="font-size:18px; font-weight:600; line-height:1.5;">
-          ${currentQuestion.question}
-        </p>
-
-        <div style="margin-top:20px; display:flex; gap:12px;">
-          <button class="mode-btn" data-yn="true">Да</button>
-          <button class="mode-btn" data-yn="false">Нет</button>
-        </div>
-
-        <p style="margin-top:16px; color:#6b7280;">
-          Правильных ответов: ${correctAnswers}
-        </p>
-        `
-        : `
-        <h3>Тренировка завершена</h3>
-        <p>Правильных ответов: <strong>${correctAnswers}</strong> из <strong>${questions.length}</strong></p>
-        <p>Позже сюда можно добавить разбор ошибок и кнопку «Пройти ещё раз».</p>
-        `
-      : `
-      <h3>Что здесь будет дальше</h3>
-      <p>${text}</p>
-      <p><strong>Следующий шаг:</strong> начать по очереди наполнять режимы вопросами.</p>
-      `
-  }
-</div>
+                  <div class="trainer-placeholder">
+                    <h3>Что здесь будет дальше</h3>
+                    <p>${text}</p>
+                    <p><strong>Следующий шаг:</strong> начать по очереди наполнять режимы вопросами.</p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        `;
+          </div>`;
+        document.getElementById("backBtn").addEventListener("click", goBack);
+        document.getElementById("homeBtn").addEventListener("click", goHome);
+      }
+
+      /* ── ТЕОРИЯ ── */
+      function renderTheory() {
+        const topic    = state.trainerContext && state.trainerContext.topic;
+        const sections = (topic && theoryContent[topic]) || [];
+        const totalTerms = sections.reduce((acc, s) => acc + s.terms.length, 0);
+
+        const sidebarHTML = `
+          <div class="theory-sidebar-label">Разделы</div>
+          ${sections.map((s, i) => `
+            <button class="theory-nav-link" data-target="${s.id}">
+              <span class="theory-nav-num">${i + 1}</span>
+              <span>${escapeHtml(s.title)}</span>
+            </button>`).join("")}`;
+
+        const contentHTML = sections.map(s => `
+          <section class="theory-section" id="${s.id}">
+            <div class="theory-section-header">
+              <span class="theory-section-emoji">${s.emoji}</span>
+              <h3 class="theory-section-title">${escapeHtml(s.title)}</h3>
+            </div>
+            ${s.terms.map((t, i) => `
+              <div class="theory-term-card">
+                <span class="theory-term-index">${i + 1}</span>
+                <div class="theory-term-body">
+                  <span class="theory-term-name">${escapeHtml(t.term)}</span><span class="theory-term-dash"> —</span> ${escapeHtml(t.def)}
+                </div>
+              </div>`).join("")}
+          </section>`).join("");
+
+        app.innerHTML = `
+          <div class="theory-page">
+            <div class="theory-topbar">
+              <div class="theory-topbar-info">
+                <h2>🧠 ${escapeHtml(topic || "Теория")}</h2>
+                <p>${sections.length} разделов · ${totalTerms} терминов</p>
+              </div>
+              <div class="theory-topbar-btns">
+                <button class="theory-btn secondary" id="backBtn">Назад</button>
+                <button class="theory-btn" id="homeBtn">Меню</button>
+              </div>
+            </div>
+            <div class="theory-body">
+              <nav class="theory-sidebar">${sidebarHTML}</nav>
+              <div class="theory-content">
+                ${contentHTML || "<p style='color:#6b7280'>Теория для этого раздела ещё не добавлена.</p>"}
+              </div>
+            </div>
+          </div>`;
 
         document.getElementById("backBtn").addEventListener("click", goBack);
-document.getElementById("homeBtn").addEventListener("click", goHome);
+        document.getElementById("homeBtn").addEventListener("click", goHome);
 
-document.querySelectorAll("[data-yn]").forEach((btn) => {
-  btn.addEventListener("click", () => {
-    answerYesNo(btn.getAttribute("data-yn") === "true");
-  });
-});
-}
+        /* клик по пункту меню → скролл к секции */
+        document.querySelectorAll(".theory-nav-link").forEach(btn => {
+          btn.addEventListener("click", () => {
+            const el = document.getElementById(btn.getAttribute("data-target"));
+            if (el) {
+              el.scrollIntoView({ behavior: "smooth", block: "start" });
+              setActiveTheoryNav(btn.getAttribute("data-target"));
+            }
+          });
+        });
 
+        /* IntersectionObserver — подсвечивает активный пункт при прокрутке */
+        if (sections.length > 0) {
+          const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) setActiveTheoryNav(entry.target.id);
+            });
+          }, { rootMargin: "-10% 0px -55% 0px", threshold: 0 });
+
+          sections.forEach(s => {
+            const el = document.getElementById(s.id);
+            if (el) observer.observe(el);
+          });
+        }
+      }
+
+      /* подсвечивает нужный пункт и прокручивает к нему на мобильном */
+      function setActiveTheoryNav(targetId) {
+        document.querySelectorAll(".theory-nav-link").forEach(link => {
+          const active = link.getAttribute("data-target") === targetId;
+          link.classList.toggle("active", active);
+          if (active) {
+            /* центрирует пункт в горизонтальном скролле на мобильных */
+            link.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+          }
+        });
+      }
+
+      /* ── хлебные крошки ── */
       function buildBreadcrumbs() {
-        const parts = [];
+        if (state.trainerContext?.type === "random-all")       return "Все разделы → Random";
+        if (state.trainerContext?.type === "random-subtopics") return `${state.currentSection} → Random`;
+        if (state.trainerContext?.type === "random-mode")
+          return `${state.currentSection ? state.currentSection + " → " : ""}${state.currentTopic} → Random`;
 
+        const parts = [];
         if (state.currentSection) parts.push(state.currentSection);
         if (state.currentTopic && state.currentTopic !== state.currentSection) parts.push(state.currentTopic);
-        if (state.trainerContext && state.trainerContext.mode && state.trainerContext.type !== "random-mode") {
+        if (state.trainerContext?.mode && state.trainerContext.type !== "random-mode")
           parts.push(state.trainerContext.mode);
-        }
-
-        if (state.trainerContext && state.trainerContext.type === "random-all") {
-          return "Все разделы → Random";
-        }
-
-        if (state.trainerContext && state.trainerContext.type === "random-subtopics") {
-          return `${state.currentSection} → Random`;
-        }
-
-        if (state.trainerContext && state.trainerContext.type === "random-mode") {
-          return `${state.currentSection ? state.currentSection + " → " : ""}${state.currentTopic} → Random`;
-        }
-
         return parts.join(" → ");
       }
 
-      function escapeHtml(text) {
-        return text
-          .replaceAll("&", "&amp;")
-          .replaceAll('"', "&quot;")
-          .replaceAll("<", "&lt;")
-          .replaceAll(">", "&gt;");
+      /* ══════════════════════════════════════════════════════
+         ГЛАВНЫЙ РЕНДЕР
+         ══════════════════════════════════════════════════════ */
+      function render() {
+        localStorage.setItem("bioState", JSON.stringify(state));
+        if (state.screen === "welcome")   return renderWelcome();
+        if (state.screen === "sections")  return renderSections();
+        if (state.screen === "subtopics") return renderSubtopics();
+        if (state.screen === "modes")     return renderModes();
+        if (state.screen === "theory")    return renderTheory();
+        return renderTrainer();
       }
 
-     function render() {
-  localStorage.setItem("bioState", JSON.stringify(state));
-  console.log("SAVE STATE", state);
-
-  if (state.screen === "welcome") return renderWelcome();
-  if (state.screen === "sections") return renderSections();
-  if (state.screen === "subtopics") return renderSubtopics();
-  if (state.screen === "modes") return renderModes();
-  if (state.trainerContext && state.trainerContext.type === "theory") return renderTheory();
-  return renderTrainer();
-}
-
-const welcomeSeen = localStorage.getItem("welcomeSeen");
-
-if (welcomeSeen) {
-  state.screen = "sections";
-}
-
-render();
+      if (localStorage.getItem("welcomeSeen")) state.screen = "sections";
+      render();
     </script>
   </body>
 </html>
