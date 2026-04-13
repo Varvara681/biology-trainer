@@ -2442,41 +2442,60 @@
           btn.addEventListener("click", () => openSubtopic(btn.getAttribute("data-subtopic"))));
       }
 
-      function renderModes() {
-        app.innerHTML = `
-          <div class="screen">
-            <div class="app-shell">
-              <div class="panel">
-                <div class="header-row">
-                  <div class="header-text">
-                    <h2>${state.currentTopic}</h2>
-                    <p>Выберите формат тренировки.</p>
-                  </div>
-                  <div class="nav-actions">
-                    <button class="action-btn secondary" id="backBtn">Назад</button>
-                    <button class="action-btn" id="homeBtn">Главное меню</button>
-                  </div>
-                </div>
-                <div class="breadcrumbs">
-                  ${state.currentSection ? `${state.currentSection} → ` : ""}${state.currentTopic}
-                </div>
-                <div class="grid">
-                  ${trainingModes.map(m => `
-                    <button class="mode-btn ${m.key === "random-mode" ? "random-btn" : ""}"
-                            data-mode="${m.key}" data-label="${m.label}">
-                      <span>${m.label}</span>
-                      <span class="btn-icon">${getIcon(m.label)}</span>
-                    </button>`).join("")}
-                </div>
-              </div>
+     function renderModes() {
+  app.innerHTML = `
+    <div class="screen">
+      <div class="app-shell">
+        <div class="panel">
+          <div class="header-row">
+            <div class="header-text">
+              <h2>${state.currentTopic}</h2>
+              <p>Выберите формат тренировки.</p>
             </div>
-          </div>`;
-        document.getElementById("backBtn").addEventListener("click", goBack);
-        document.getElementById("homeBtn").addEventListener("click", goHome);
-        document.querySelectorAll("[data-mode]").forEach(btn =>
-          btn.addEventListener("click", () =>
-            openTrainingMode(btn.getAttribute("data-mode"), btn.getAttribute("data-label"))));
-      }
+            <div class="nav-actions">
+              <button class="action-btn secondary" id="backBtn">Назад</button>
+              <button class="action-btn" id="homeBtn">Главное меню</button>
+            </div>
+          </div>
+          <div class="breadcrumbs">
+            ${state.currentSection ? `${state.currentSection} → ` : ""}${state.currentTopic}
+          </div>
+          <div class="grid">
+            ${trainingModes.map(m => {
+              let best = null;
+              if (m.key === "write-term") {
+                const scores = ["A","B","C"]
+                  .map(l => getBestScore(state.currentTopic, `write-term-${l}`))
+                  .filter(s => s !== null)
+                  .map(Number);
+                if (scores.length > 0) best = Math.max(...scores);
+              } else if (m.key !== "random-mode") {
+                const s = getBestScore(state.currentTopic, m.key);
+                if (s !== null) best = Number(s);
+              }
+              const bestHTML = best !== null
+                ? `<span style="font-size:12px;font-weight:700;color:#8b5cf6;background:#ede9fe;padding:3px 8px;border-radius:8px;white-space:nowrap;">${best}%</span>`
+                : "";
+              return `
+                <button class="mode-btn ${m.key === "random-mode" ? "random-btn" : ""}"
+                        data-mode="${m.key}" data-label="${m.label}">
+                  <span style="display:flex;align-items:center;gap:10px;">
+                    <span style="font-size:18px;">${getIcon(m.label)}</span>
+                    <span>${m.label}</span>
+                  </span>
+                  ${bestHTML}
+                </button>`;
+            }).join("")}
+          </div>
+        </div>
+      </div>
+    </div>`;
+  document.getElementById("backBtn").addEventListener("click", goBack);
+  document.getElementById("homeBtn").addEventListener("click", goHome);
+  document.querySelectorAll("[data-mode]").forEach(btn =>
+    btn.addEventListener("click", () =>
+      openTrainingMode(btn.getAttribute("data-mode"), btn.getAttribute("data-label"))));
+}
 function shuffle(arr) {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
