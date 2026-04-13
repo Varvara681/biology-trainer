@@ -336,6 +336,59 @@
         .theory-content { padding: 20px 16px 60px; }
         .theory-section { scroll-margin-top: 110px; /* topbar 51 + sidebar ~44 + зазор */ }
       }
+      /* ══ ТРЕНИРОВКА ══ */
+.trainer-counter { font-size: 12px; color: #9ca3af; margin-bottom: 6px; font-weight: 600; }
+.trainer-progress-bar { height: 6px; background: #e5e7eb; border-radius: 3px; overflow: hidden; margin-bottom: 20px; }
+.trainer-progress-fill { height: 100%; background: #8b5cf6; border-radius: 3px; transition: width 0.3s ease; }
+
+.question-card { background: #fff; border-radius: 18px; padding: 24px; border: 1px solid #ede9fe; margin-bottom: 16px; }
+.question-text { font-size: 16px; line-height: 1.6; color: #111827; font-weight: 500; margin: 0 0 20px; }
+
+.yn-btns { display: flex; gap: 12px; }
+.yn-btn { flex: 1; padding: 16px; border: none; border-radius: 14px; font-size: 16px; font-weight: 700; cursor: pointer; transition: transform 0.1s; }
+.yn-btn:hover { transform: translateY(-2px); }
+.yn-btn.yes { background: #d1fae5; color: #065f46; }
+.yn-btn.no  { background: #fee2e2; color: #991b1b; }
+.yn-btn.correct { background: #d1fae5 !important; color: #065f46 !important; }
+.yn-btn.wrong   { background: #fee2e2 !important; color: #991b1b !important; }
+
+.choice-options { display: flex; flex-direction: column; gap: 10px; }
+.choice-opt { padding: 14px 18px; border: 2px solid #ede9fe; border-radius: 14px; background: #fff; font-size: 14px; line-height: 1.5; cursor: pointer; text-align: left; transition: border-color 0.15s, background 0.15s; display: flex; align-items: flex-start; gap: 12px; }
+.choice-opt:hover { border-color: #a78bfa; background: #faf5ff; }
+.choice-label { font-weight: 700; color: #8b5cf6; flex-shrink: 0; min-width: 20px; }
+.choice-opt.correct { background: #d1fae5 !important; border-color: #6ee7b7 !important; color: #065f46 !important; }
+.choice-opt.wrong   { background: #fee2e2 !important; border-color: #fca5a5 !important; color: #991b1b !important; }
+
+.feedback-box { padding: 14px 18px; border-radius: 14px; margin-top: 12px; font-size: 14px; line-height: 1.5; }
+.feedback-box.correct { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; }
+.feedback-box.wrong   { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+.feedback-correct-answer { margin-top: 8px; font-weight: 600; }
+
+.next-btn { width: 100%; padding: 16px; background: #111827; color: #fff; border: none; border-radius: 14px; font-size: 16px; font-weight: 700; cursor: pointer; margin-top: 16px; transition: opacity 0.15s; }
+.next-btn:hover { opacity: 0.85; }
+
+.writing-level-switcher { display: flex; gap: 6px; margin-bottom: 16px; background: #f3f4f6; padding: 4px; border-radius: 12px; }
+.wl-btn { flex: 1; padding: 8px 6px; border: none; border-radius: 9px; font-size: 12px; font-weight: 600; cursor: pointer; background: transparent; color: #6b7280; transition: background 0.15s, color 0.15s; }
+.wl-btn.active { background: #fff; color: #4c1d95; box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+
+.blank-input { display: inline-block; border: none; border-bottom: 2px solid #8b5cf6; background: transparent; font-size: 15px; font-family: inherit; padding: 2px 8px; width: 130px; text-align: center; margin: 0 4px; }
+.blank-input:focus { outline: none; border-bottom-color: #4c1d95; }
+.blank-input.correct { border-bottom-color: #10b981; color: #065f46; }
+.blank-input.wrong   { border-bottom-color: #ef4444; color: #991b1b; }
+
+.writing-input { width: 100%; padding: 12px 16px; border: 2px solid #ede9fe; border-radius: 12px; font-size: 15px; font-family: inherit; resize: vertical; min-height: 100px; margin-top: 12px; transition: border-color 0.15s; box-sizing: border-box; }
+.writing-input:focus { outline: none; border-color: #8b5cf6; }
+.writing-input.correct { border-color: #6ee7b7; background: #f0fdf4; }
+.writing-input.wrong   { border-color: #fca5a5; background: #fff1f2; }
+
+.result-screen { text-align: center; padding: 40px 20px; }
+.result-emoji { font-size: 64px; margin-bottom: 16px; }
+.result-percent { font-size: 56px; font-weight: 800; color: #4c1d95; margin: 0; }
+.result-label { color: #6b7280; font-size: 16px; margin: 8px 0 24px; }
+.result-stats { display: flex; gap: 16px; justify-content: center; margin-bottom: 32px; flex-wrap: wrap; }
+.result-stat { background: #fff; border-radius: 14px; padding: 16px 24px; border: 1px solid #ede9fe; }
+.result-stat-num { font-size: 24px; font-weight: 700; color: #111827; }
+.result-stat-lbl { font-size: 12px; color: #6b7280; margin-top: 4px; }
     </style>
   </head>
   <body>
@@ -446,6 +499,282 @@
       /* ══════════════════════════════════════════════════════
          ТЕОРИЯ: НЕРВНАЯ СИСТЕМА
          ══════════════════════════════════════════════════════ */
+      const trainingData = {
+  "Общие термины нервной системы": {
+    "yes-no": [
+      { question: "Белое вещество — проводящие пути, образованные аксонами нейронов.", answer: true },
+      { question: "Нейроглия — вспомогательные клетки нервной ткани, выполняющие защитные, трофические и изолирующие функции.", answer: true },
+      { question: "Аксон — короткий ветвящийся отросток нейрона, принимающий сигналы от других клеток.", answer: false, correct: "Аксон — длинный отросток нейрона, по которому сигнал передаётся от тела клетки к другим клеткам." },
+      { question: "Нервная система — совокупность органов, обеспечивающих восприятие и передачу импульсов без участия регуляции деятельности органов.", answer: false, correct: "Нервная система — интегративная система организма, обеспечивающая восприятие, обработку информации и регуляцию деятельности органов." },
+      { question: "Серое вещество — скопление тел нейронов, участвующее в обработке информации.", answer: true },
+      { question: "Ганглии — скопления тел нейронов, расположенные вне центральной нервной системы.", answer: true },
+      { question: "Дендрит — длинный отросток нейрона, по которому сигнал передаётся от тела клетки к другим клеткам.", answer: false, correct: "Дендрит — короткий ветвящийся отросток нейрона, принимающий сигналы от других клеток." },
+      { question: "Периферическая нервная система (ПНС) — совокупность нервов и ганглиев вне ЦНС, передающих импульсы между органами и мозгом.", answer: true },
+      { question: "Синапс — контакт между клетками, выполняющий главным образом опорную и защитную функцию.", answer: false, correct: "Синапс — специализированное соединение между клетками, обеспечивающее передачу нервного импульса." },
+      { question: "Нейрон — специализированная возбудимая клетка нервной ткани, способная генерировать и проводить нервные импульсы.", answer: true },
+      { question: "Центральная нервная система (ЦНС) — отдел нервной системы, включающий головной и спинной мозг, обеспечивающий проведение импульсов между органами и мышцами.", answer: false, correct: "ЦНС — отдел нервной системы, включающий головной и спинной мозг, осуществляющий анализ сигналов и координацию реакций." },
+      { question: "Нерв — анатомический пучок нервных волокон, проводящий импульсы в периферической нервной системе.", answer: true }
+    ],
+    "choice-4": [
+      {
+        question: "Выбери термин по определению: «Скопление тел нейронов, участвующее в обработке информации.»",
+        options: ["Белое вещество", "Ганглии", "Серое вещество", "Нейроглия"],
+        answer: 2
+      },
+      {
+        question: "Выбери правильное определение термина: Синапс",
+        options: [
+          "Специализированное соединение между клетками, обеспечивающее передачу нервного импульса.",
+          "Короткий ветвящийся отросток нейрона, принимающий сигналы от других клеток.",
+          "Скопления тел нейронов, расположенные вне центральной нервной системы.",
+          "Вспомогательные клетки нервной ткани, выполняющие защитные, трофические и изолирующие функции."
+        ],
+        answer: 0
+      },
+      {
+        question: "Выбери термин по определению: «Совокупность нервов и ганглиев вне ЦНС, передающих импульсы между органами и мозгом.»",
+        options: ["Центральная нервная система (ЦНС)", "Нервная система", "Периферическая нервная система (ПНС)", "Белое вещество"],
+        answer: 2
+      },
+      {
+        question: "Выбери правильное определение термина: Нейроглия",
+        options: [
+          "Специализированная возбудимая клетка нервной ткани, способная генерировать и проводить нервные импульсы.",
+          "Вспомогательные клетки нервной ткани, выполняющие защитные, трофические и изолирующие функции.",
+          "Скопления тел нейронов, расположенные вне центральной нервной системы.",
+          "Специализированное соединение между клетками, обеспечивающее передачу нервного импульса."
+        ],
+        answer: 1
+      },
+      {
+        question: "Выбери термин по определению: «Длинный отросток нейрона, по которому сигнал передаётся от тела клетки к другим клеткам.»",
+        options: ["Дендрит", "Аксон", "Нерв", "Синапс"],
+        answer: 1
+      },
+      {
+        question: "Выбери правильное определение термина: Ганглии",
+        options: [
+          "Совокупность нервов и ганглиев вне ЦНС, передающих импульсы между органами и мозгом.",
+          "Скопления тел нейронов, расположенные вне центральной нервной системы.",
+          "Скопление тел нейронов, участвующее в обработке информации.",
+          "Анатомический пучок нервных волокон, проводящий импульсы в периферической нервной системе."
+        ],
+        answer: 1
+      },
+      {
+        question: "Выбери термин по определению: «Интегративная система организма, обеспечивающая восприятие, обработку информации и регуляцию деятельности органов.»",
+        options: ["Нервная система", "Центральная нервная система (ЦНС)", "Периферическая нервная система (ПНС)", "Нейрон"],
+        answer: 0
+      },
+      {
+        question: "Выбери правильное определение термина: Дендрит",
+        options: [
+          "Длинный отросток нейрона, по которому сигнал передаётся от тела клетки к другим клеткам.",
+          "Анатомический пучок нервных волокон, проводящий импульсы в периферической нервной системе.",
+          "Проводящие пути, образованные аксонами нейронов.",
+          "Короткий ветвящийся отросток нейрона, принимающий сигналы от других клеток."
+        ],
+        answer: 3
+      },
+      {
+        question: "Выбери термин по определению: «Отдел нервной системы, включающий головной и спинной мозг, осуществляющий анализ сигналов и координацию реакций.»",
+        options: ["Периферическая нервная система (ПНС)", "Нервная система", "Центральная нервная система (ЦНС)", "Ганглии"],
+        answer: 2
+      },
+      {
+        question: "Выбери правильное определение термина: Нейрон",
+        options: [
+          "Вспомогательные клетки нервной ткани, выполняющие защитные, трофические и изолирующие функции.",
+          "Длинный отросток нейрона, по которому сигнал передаётся от тела клетки к другим клеткам.",
+          "Специализированное соединение между клетками, обеспечивающее передачу нервного импульса.",
+          "Специализированная возбудимая клетка нервной ткани, способная генерировать и проводить нервные импульсы."
+        ],
+        answer: 3
+      },
+      {
+        question: "Выбери термин по определению: «Анатомический пучок нервных волокон, проводящий импульсы в периферической нервной системе.»",
+        options: ["Белое вещество", "Нерв", "Ганглии", "Периферическая нервная система (ПНС)"],
+        answer: 1
+      },
+      {
+        question: "Выбери правильное определение термина: Белое вещество",
+        options: [
+          "Скопление тел нейронов, участвующее в обработке информации.",
+          "Проводящие пути, образованные аксонами нейронов.",
+          "Скопления тел нейронов, расположенные вне центральной нервной системы.",
+          "Специализированная возбудимая клетка нервной ткани, способная генерировать и проводить нервные импульсы."
+        ],
+        answer: 1
+      }
+    ],
+    "close-definitions": [
+      {
+        term: "Нервная система",
+        options: [
+          "Интегративная система организма, обеспечивающая восприятие, обработку информации и регуляцию деятельности органов.",
+          "Отдел нервной системы, включающий головной и спинной мозг, осуществляющий анализ сигналов и координацию реакций.",
+          "Совокупность нервов и ганглиев вне ЦНС, передающих импульсы между органами и мозгом.",
+          "Система клеток нервной ткани, проводящая импульсы между органами и мышцами."
+        ],
+        answer: 0
+      },
+      {
+        term: "Центральная нервная система (ЦНС)",
+        options: [
+          "Совокупность нервов и ганглиев вне ЦНС, передающих импульсы между органами и мозгом.",
+          "Интегративная система организма, обеспечивающая восприятие, обработку информации и регуляцию деятельности органов.",
+          "Система нервных волокон, обеспечивающая проведение импульсов от рецепторов к мозгу.",
+          "Отдел нервной системы, включающий головной и спинной мозг, осуществляющий анализ сигналов и координацию реакций."
+        ],
+        answer: 3
+      },
+      {
+        term: "Периферическая нервная система (ПНС)",
+        options: [
+          "Отдел нервной системы, включающий головной и спинной мозг, осуществляющий анализ сигналов и координацию реакций.",
+          "Система проводящих путей, образованных аксонами нейронов.",
+          "Совокупность нервов и ганглиев вне ЦНС, передающих импульсы между органами и мозгом.",
+          "Интегративная система организма, обеспечивающая восприятие, обработку информации и регуляцию деятельности органов."
+        ],
+        answer: 2
+      },
+      {
+        term: "Нейрон",
+        options: [
+          "Специализированное соединение между клетками, обеспечивающее передачу нервного импульса.",
+          "Специализированная возбудимая клетка нервной ткани, способная генерировать и проводить нервные импульсы.",
+          "Вспомогательные клетки нервной ткани, выполняющие защитные, трофические и изолирующие функции.",
+          "Анатомический пучок нервных волокон, проводящий импульсы в периферической нервной системе."
+        ],
+        answer: 1
+      },
+      {
+        term: "Аксон",
+        options: [
+          "Короткий ветвящийся отросток нейрона, принимающий сигналы от других клеток.",
+          "Специализированное соединение между клетками, обеспечивающее передачу нервного импульса.",
+          "Длинный отросток нейрона, по которому сигнал передаётся от тела клетки к другим клеткам.",
+          "Анатомический пучок нервных волокон, проводящий импульсы в периферической нервной системе."
+        ],
+        answer: 2
+      },
+      {
+        term: "Дендрит",
+        options: [
+          "Короткий ветвящийся отросток нейрона, принимающий сигналы от других клеток.",
+          "Длинный отросток нейрона, по которому сигнал передаётся от тела клетки к другим клеткам.",
+          "Отросток нейрона, образующий проводящие пути белого вещества.",
+          "Специализированная возбудимая клетка нервной ткани, способная генерировать импульсы."
+        ],
+        answer: 0
+      },
+      {
+        term: "Синапс",
+        options: [
+          "Скопления тел нейронов, расположенные вне центральной нервной системы.",
+          "Пучок нервных волокон, проводящий импульсы в периферической нервной системе.",
+          "Вспомогательные клетки нервной ткани, выполняющие защитные и трофические функции.",
+          "Специализированное соединение между клетками, обеспечивающее передачу нервного импульса."
+        ],
+        answer: 3
+      },
+      {
+        term: "Нейроглия",
+        options: [
+          "Скопление тел нейронов, участвующее в обработке информации.",
+          "Вспомогательные клетки нервной ткани, выполняющие защитные, трофические и изолирующие функции.",
+          "Специализированное соединение между клетками, обеспечивающее передачу нервного импульса.",
+          "Специализированные структуры, воспринимающие раздражения и преобразующие их в нервные импульсы."
+        ],
+        answer: 1
+      },
+      {
+        term: "Ганглии",
+        options: [
+          "Анатомический пучок нервных волокон, проводящий импульсы в периферической нервной системе.",
+          "Скопления тел нейронов, расположенные вне центральной нервной системы.",
+          "Скопление тел нейронов, участвующее в обработке информации.",
+          "Проводящие пути, образованные аксонами нейронов."
+        ],
+        answer: 1
+      },
+      {
+        term: "Нерв",
+        options: [
+          "Скопления тел нейронов, расположенные вне центральной нервной системы.",
+          "Совокупность нервов и ганглиев вне ЦНС, передающих импульсы между органами и мозгом.",
+          "Анатомический пучок нервных волокон, проводящий импульсы в периферической нервной системе.",
+          "Проводящие пути, образованные аксонами нейронов."
+        ],
+        answer: 2
+      },
+      {
+        term: "Серое вещество",
+        options: [
+          "Скопление тел нейронов, участвующее в обработке информации.",
+          "Проводящие пути, образованные аксонами нейронов.",
+          "Скопления тел нейронов, расположенные вне центральной нервной системы.",
+          "Вспомогательные клетки нервной ткани, выполняющие защитные, трофические и изолирующие функции."
+        ],
+        answer: 0
+      },
+      {
+        term: "Белое вещество",
+        options: [
+          "Скопление тел нейронов, участвующее в обработке информации.",
+          "Скопления тел нейронов, расположенные вне центральной нервной системы.",
+          "Анатомический пучок нервных волокон, проводящий импульсы в периферической нервной системе.",
+          "Проводящие пути, образованные аксонами нейронов."
+        ],
+        answer: 3
+      }
+    ],
+    "writing": {
+      "A": [
+        { question: "Нервная система — интегративная система организма, обеспечивающая восприятие, обработку ________ и регуляцию деятельности ________.", blanks: ["информации", "органов"] },
+        { question: "Центральная нервная система (ЦНС) — отдел нервной системы, включающий головной и ________ мозг, осуществляющий анализ сигналов и координацию ________.", blanks: ["спинной", "реакций"] },
+        { question: "Периферическая нервная система (ПНС) — совокупность нервов и ганглиев вне ЦНС, передающих ________ между органами и ________.", blanks: ["импульсы", "мозгом"] },
+        { question: "Нейрон — специализированная возбудимая клетка нервной ткани, способная генерировать и проводить нервные ________.", blanks: ["импульсы"] },
+        { question: "Аксон — длинный отросток нейрона, по которому сигнал передаётся от тела клетки к другим ________.", blanks: ["клеткам"] },
+        { question: "Дендрит — короткий ветвящийся отросток нейрона, принимающий сигналы от других ________.", blanks: ["клеток"] },
+        { question: "Синапс — специализированное соединение между клетками, обеспечивающее передачу нервного ________.", blanks: ["импульса"] },
+        { question: "Нейроглия — вспомогательные клетки нервной ткани, выполняющие защитные, ________ и изолирующие функции.", blanks: ["трофические"] },
+        { question: "Ганглии — скопления тел нейронов, расположенные вне центральной нервной ________.", blanks: ["системы"] },
+        { question: "Нерв — анатомический пучок нервных волокон, проводящий ________ в периферической нервной системе.", blanks: ["импульсы"] },
+        { question: "Серое вещество — скопление тел нейронов, участвующее в обработке ________.", blanks: ["информации"] },
+        { question: "Белое вещество — проводящие пути, образованные ________ нейронов.", blanks: ["аксонами"] }
+      ],
+      "B": [
+        { question: "Нервная система — интегративная система организма, ________________________________________.", answer: "обеспечивающая восприятие, обработку информации и регуляцию деятельности органов" },
+        { question: "Центральная нервная система (ЦНС) — отдел нервной системы, ________________________________________.", answer: "включающий головной и спинной мозг, осуществляющий анализ сигналов и координацию реакций" },
+        { question: "Периферическая нервная система (ПНС) — совокупность нервов и ганглиев вне ЦНС, ________________________________________.", answer: "передающих импульсы между органами и мозгом" },
+        { question: "Нейрон — специализированная возбудимая клетка нервной ткани, ________________________________________.", answer: "способная генерировать и проводить нервные импульсы" },
+        { question: "Аксон — длинный отросток нейрона, ________________________________________.", answer: "по которому сигнал передаётся от тела клетки к другим клеткам" },
+        { question: "Дендрит — ________________________________________, принимающий сигналы от других клеток.", answer: "короткий ветвящийся отросток нейрона" },
+        { question: "Синапс — специализированное соединение между клетками, ________________________________________.", answer: "обеспечивающее передачу нервного импульса" },
+        { question: "Нейроглия — вспомогательные клетки нервной ткани, ________________________________________.", answer: "выполняющие защитные, трофические и изолирующие функции" },
+        { question: "Ганглии — ________________________________________, расположенные вне центральной нервной системы.", answer: "скопления тел нейронов" },
+        { question: "Нерв — анатомический пучок нервных волокон, ________________________________________.", answer: "проводящий импульсы в периферической нервной системе" },
+        { question: "Серое вещество — ________________________________________, участвующее в обработке информации.", answer: "скопление тел нейронов" },
+        { question: "Белое вещество — ________________________________________ аксонами нейронов.", answer: "проводящие пути, образованные" }
+      ],
+      "C": [
+        { term: "Нервная система", answer: "интегративная система организма, обеспечивающая восприятие, обработку информации и регуляцию деятельности органов" },
+        { term: "Центральная нервная система (ЦНС)", answer: "отдел нервной системы, включающий головной и спинной мозг, осуществляющий анализ сигналов и координацию реакций" },
+        { term: "Периферическая нервная система (ПНС)", answer: "совокупность нервов и ганглиев вне ЦНС, передающих импульсы между органами и мозгом" },
+        { term: "Нейрон", answer: "специализированная возбудимая клетка нервной ткани, способная генерировать и проводить нервные импульсы" },
+        { term: "Аксон", answer: "длинный отросток нейрона, по которому сигнал передаётся от тела клетки к другим клеткам" },
+        { term: "Дендрит", answer: "короткий ветвящийся отросток нейрона, принимающий сигналы от других клеток" },
+        { term: "Синапс", answer: "специализированное соединение между клетками, обеспечивающее передачу нервного импульса" },
+        { term: "Нейроглия", answer: "вспомогательные клетки нервной ткани, выполняющие защитные, трофические и изолирующие функции" },
+        { term: "Ганглии", answer: "скопления тел нейронов, расположенные вне центральной нервной системы" },
+        { term: "Нерв", answer: "анатомический пучок нервных волокон, проводящий импульсы в периферической нервной системе" },
+        { term: "Серое вещество", answer: "скопление тел нейронов, участвующее в обработке информации" },
+        { term: "Белое вещество", answer: "проводящие пути, образованные аксонами нейронов" }
+      ]
+    }
+  }
+};
       const theoryContent = {
         "Нервная система": [
           {
@@ -743,7 +1072,7 @@
         state.screen = "trainer";
         state.trainerContext = modeKey === "random-mode"
           ? { type: "random-mode", title: `Random: ${state.currentTopic}`, mode: modeLabel }
-          : { type: "mode",        title: state.currentTopic,              mode: modeLabel };
+          : { type: "mode",        title: state.currentTopic,              mode: modeLabel, modeKey: modeKey };
         render();
       }
 
@@ -895,8 +1224,394 @@
           btn.addEventListener("click", () =>
             openTrainingMode(btn.getAttribute("data-mode"), btn.getAttribute("data-label"))));
       }
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
 
+function getBestScore(topic, mode) {
+  const key = `best_${topic}_${mode}`;
+  return localStorage.getItem(key);
+}
+
+function saveBestScore(topic, mode, percent) {
+  const key = `best_${topic}_${mode}`;
+  const prev = localStorage.getItem(key);
+  if (!prev || percent > parseInt(prev)) {
+    localStorage.setItem(key, percent);
+  }
+}
+
+function runTrainer(topic, modeKey) {
+  const data = trainingData[topic];
+  if (!data) { renderTrainer(); return; }
+
+  if (modeKey === "write-term") {
+    runWriting(topic, "A");
+    return;
+  }
+
+  const questions = shuffle(data[modeKey] || []);
+  if (questions.length === 0) { renderTrainer(); return; }
+
+  let current = 0;
+  let correct = 0;
+  let answered = false;
+
+  function showQuestion() {
+    answered = false;
+    const q = questions[current];
+    const total = questions.length;
+
+    let questionHTML = "";
+
+    if (modeKey === "yes-no") {
+      questionHTML = `
+        <div class="question-card">
+          <p class="question-text">${escapeHtml(q.question)}</p>
+          <div class="yn-btns">
+            <button class="yn-btn yes" data-ans="true">✓ Да</button>
+            <button class="yn-btn no" data-ans="false">✗ Нет</button>
+          </div>
+          <div id="feedback"></div>
+        </div>`;
+    } else if (modeKey === "choice-4") {
+      questionHTML = `
+        <div class="question-card">
+          <p class="question-text">${escapeHtml(q.question)}</p>
+          <div class="choice-options">
+            ${q.options.map((opt, i) => `
+              <button class="choice-opt" data-idx="${i}">
+                <span class="choice-label">${["A","B","C","D"][i]}</span>
+                <span>${escapeHtml(opt)}</span>
+              </button>`).join("")}
+          </div>
+          <div id="feedback"></div>
+        </div>`;
+    } else if (modeKey === "close-definitions") {
+      questionHTML = `
+        <div class="question-card">
+          <p class="question-text">Выбери верное определение термина: <strong>${escapeHtml(q.term)}</strong></p>
+          <div class="choice-options">
+            ${q.options.map((opt, i) => `
+              <button class="choice-opt" data-idx="${i}">
+                <span class="choice-label">${["A","B","C","D"][i]}</span>
+                <span>${escapeHtml(opt)}</span>
+              </button>`).join("")}
+          </div>
+          <div id="feedback"></div>
+        </div>`;
+    }
+
+    app.innerHTML = `
+      <div class="screen">
+        <div class="app-shell">
+          <div class="panel">
+            <div class="header-row">
+              <div class="header-text">
+                <h2>${escapeHtml(topic)}</h2>
+              </div>
+              <div class="nav-actions">
+                <button class="action-btn secondary" id="backBtn">Назад</button>
+                <button class="action-btn" id="homeBtn">Меню</button>
+              </div>
+            </div>
+            <div class="trainer-counter">Вопрос ${current + 1} из ${total}</div>
+            <div class="trainer-progress-bar">
+              <div class="trainer-progress-fill" style="width:${((current)/total)*100}%"></div>
+            </div>
+            ${questionHTML}
+          </div>
+        </div>
+      </div>`;
+
+    document.getElementById("backBtn").addEventListener("click", goBack);
+    document.getElementById("homeBtn").addEventListener("click", goHome);
+
+    if (modeKey === "yes-no") {
+      document.querySelectorAll(".yn-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          if (answered) return;
+          answered = true;
+          const userAns = btn.getAttribute("data-ans") === "true";
+          const isCorrect = userAns === q.answer;
+          if (isCorrect) correct++;
+
+          document.querySelectorAll(".yn-btn").forEach(b => {
+            const bAns = b.getAttribute("data-ans") === "true";
+            if (bAns === q.answer) b.classList.add("correct");
+            else b.classList.add("wrong");
+          });
+
+          const fb = document.getElementById("feedback");
+          if (isCorrect) {
+            fb.innerHTML = `<div class="feedback-box correct">✓ Верно!</div>`;
+          } else {
+            fb.innerHTML = `<div class="feedback-box wrong">✗ Неверно!${q.correct ? `<div class="feedback-correct-answer">Правильно: ${escapeHtml(q.correct)}</div>` : ""}</div>`;
+          }
+
+          fb.innerHTML += `<button class="next-btn" id="nextBtn">${current + 1 < total ? "Следующий вопрос →" : "Завершить"}</button>`;
+          document.getElementById("nextBtn").addEventListener("click", () => {
+            current++;
+            if (current < total) showQuestion();
+            else showResult();
+          });
+        });
+      });
+    }
+
+    if (modeKey === "choice-4" || modeKey === "close-definitions") {
+      document.querySelectorAll(".choice-opt").forEach(btn => {
+        btn.addEventListener("click", () => {
+          if (answered) return;
+          answered = true;
+          const idx = parseInt(btn.getAttribute("data-idx"));
+          const isCorrect = idx === q.answer;
+          if (isCorrect) correct++;
+
+          document.querySelectorAll(".choice-opt").forEach((b, i) => {
+            if (i === q.answer) b.classList.add("correct");
+            else if (i === idx && !isCorrect) b.classList.add("wrong");
+          });
+
+          const fb = document.getElementById("feedback");
+          if (isCorrect) {
+            fb.innerHTML = `<div class="feedback-box correct">✓ Верно!</div>`;
+          } else {
+            fb.innerHTML = `<div class="feedback-box wrong">✗ Неверно! Правильный ответ: ${["A","B","C","D"][q.answer]}</div>`;
+          }
+
+          fb.innerHTML += `<button class="next-btn" id="nextBtn">${current + 1 < total ? "Следующий вопрос →" : "Завершить"}</button>`;
+          document.getElementById("nextBtn").addEventListener("click", () => {
+            current++;
+            if (current < total) showQuestion();
+            else showResult();
+          });
+        });
+      });
+    }
+  }
+
+  function showResult() {
+    const percent = Math.round((correct / questions.length) * 100);
+    saveBestScore(topic, modeKey, percent);
+    const emoji = percent >= 80 ? "🎉" : percent >= 50 ? "👍" : "📚";
+
+    app.innerHTML = `
+      <div class="screen">
+        <div class="app-shell">
+          <div class="panel">
+            <div class="result-screen">
+              <div class="result-emoji">${emoji}</div>
+              <p class="result-percent">${percent}%</p>
+              <p class="result-label">правильных ответов</p>
+              <div class="result-stats">
+                <div class="result-stat">
+                  <div class="result-stat-num">${correct}</div>
+                  <div class="result-stat-lbl">верно</div>
+                </div>
+                <div class="result-stat">
+                  <div class="result-stat-num">${questions.length - correct}</div>
+                  <div class="result-stat-lbl">ошибок</div>
+                </div>
+                <div class="result-stat">
+                  <div class="result-stat-num">${questions.length}</div>
+                  <div class="result-stat-lbl">всего</div>
+                </div>
+              </div>
+              <button class="next-btn" id="retryBtn">Пройти ещё раз</button>
+              <button class="next-btn" id="homeBtn" style="margin-top:10px;background:#e5e7eb;color:#111827;">В меню</button>
+            </div>
+          </div>
+        </div>
+      </div>`;
+
+    document.getElementById("retryBtn").addEventListener("click", () => runTrainer(topic, modeKey));
+    document.getElementById("homeBtn").addEventListener("click", goHome);
+  }
+
+  showQuestion();
+}
+
+function runWriting(topic, level) {
+  const data = trainingData[topic];
+  if (!data || !data.writing) { renderTrainer(); return; }
+
+  const questions = shuffle(data.writing[level] || []);
+  let current = 0;
+  let correct = 0;
+  let answered = false;
+
+  function showQuestion() {
+    answered = false;
+    const q = questions[current];
+    const total = questions.length;
+
+    let questionHTML = "";
+
+    if (level === "A") {
+      const parts = q.question.split("________");
+      let inputsHTML = parts[0];
+      for (let i = 0; i < q.blanks.length; i++) {
+        inputsHTML += `<input class="blank-input" data-idx="${i}" data-answer="${escapeHtml(q.blanks[i])}" placeholder="...">`;
+        if (parts[i + 1]) inputsHTML += parts[i + 1];
+      }
+      questionHTML = `
+        <div class="question-card">
+          <p class="question-text" style="margin-bottom:12px">Вставь пропущенные слова:</p>
+          <p style="font-size:15px;line-height:2">${inputsHTML}</p>
+          <div id="feedback"></div>
+          <button class="next-btn" id="checkBtn" style="margin-top:16px">Проверить</button>
+        </div>`;
+    } else if (level === "B") {
+      questionHTML = `
+        <div class="question-card">
+          <p class="question-text">${escapeHtml(q.question)}</p>
+          <textarea class="writing-input" id="writingInput" placeholder="Введи пропущенную часть..."></textarea>
+          <div id="feedback"></div>
+          <button class="next-btn" id="checkBtn" style="margin-top:16px">Проверить</button>
+        </div>`;
+    } else {
+      questionHTML = `
+        <div class="question-card">
+          <p class="question-text">Напиши определение термина:</p>
+          <p style="font-size:20px;font-weight:700;color:#4c1d95;margin:0 0 16px">${escapeHtml(q.term)}</p>
+          <textarea class="writing-input" id="writingInput" placeholder="Введи определение..."></textarea>
+          <div id="feedback"></div>
+          <button class="next-btn" id="checkBtn" style="margin-top:16px">Проверить</button>
+        </div>`;
+    }
+
+    app.innerHTML = `
+      <div class="screen">
+        <div class="app-shell">
+          <div class="panel">
+            <div class="header-row">
+              <div class="header-text">
+                <h2>${escapeHtml(topic)}</h2>
+              </div>
+              <div class="nav-actions">
+                <button class="action-btn secondary" id="backBtn">Назад</button>
+                <button class="action-btn" id="homeBtn">Меню</button>
+              </div>
+            </div>
+            <div class="writing-level-switcher">
+              <button class="wl-btn ${level==="A"?"active":""}" data-level="A">Уровень 1 — слова</button>
+              <button class="wl-btn ${level==="B"?"active":""}" data-level="B">Уровень 2 — часть</button>
+              <button class="wl-btn ${level==="C"?"active":""}" data-level="C">Уровень 3 — полностью</button>
+            </div>
+            <div class="trainer-counter">Вопрос ${current + 1} из ${total}</div>
+            <div class="trainer-progress-bar">
+              <div class="trainer-progress-fill" style="width:${((current)/total)*100}%"></div>
+            </div>
+            ${questionHTML}
+          </div>
+        </div>
+      </div>`;
+
+    document.getElementById("backBtn").addEventListener("click", goBack);
+    document.getElementById("homeBtn").addEventListener("click", goHome);
+
+    document.querySelectorAll(".wl-btn").forEach(btn => {
+      btn.addEventListener("click", () => runWriting(topic, btn.getAttribute("data-level")));
+    });
+
+    document.getElementById("checkBtn").addEventListener("click", () => {
+      if (answered) return;
+      answered = true;
+      let isCorrect = false;
+
+      if (level === "A") {
+        const inputs = document.querySelectorAll(".blank-input");
+        let allCorrect = true;
+        inputs.forEach(inp => {
+          const userVal = inp.value.trim().toLowerCase();
+          const correctVal = inp.getAttribute("data-answer").toLowerCase();
+          if (userVal === correctVal) {
+            inp.classList.add("correct");
+          } else {
+            inp.classList.add("wrong");
+            allCorrect = false;
+          }
+        });
+        isCorrect = allCorrect;
+        if (isCorrect) correct++;
+        const fb = document.getElementById("feedback");
+        fb.innerHTML = isCorrect
+          ? `<div class="feedback-box correct" style="margin-top:12px">✓ Верно!</div>`
+          : `<div class="feedback-box wrong" style="margin-top:12px">✗ Есть ошибки. Правильные ответы: <strong>${q.blanks.join(", ")}</strong></div>`;
+      } else {
+        const inp = document.getElementById("writingInput");
+        const userVal = inp.value.trim().toLowerCase();
+        const correctVal = q.answer.toLowerCase();
+        isCorrect = userVal === correctVal;
+        if (isCorrect) correct++;
+        inp.classList.add(isCorrect ? "correct" : "wrong");
+        const fb = document.getElementById("feedback");
+        fb.innerHTML = isCorrect
+          ? `<div class="feedback-box correct" style="margin-top:12px">✓ Верно!</div>`
+          : `<div class="feedback-box wrong" style="margin-top:12px">✗ Неверно!<div class="feedback-correct-answer">Правильно: ${escapeHtml(q.answer)}</div></div>`;
+      }
+
+      const fb = document.getElementById("feedback");
+      fb.innerHTML += `<button class="next-btn" id="nextBtn" style="margin-top:12px">${current + 1 < total ? "Следующий вопрос →" : "Завершить"}</button>`;
+      document.getElementById("nextBtn").addEventListener("click", () => {
+        current++;
+        if (current < total) showQuestion();
+        else showResult();
+      });
+    });
+  }
+
+  function showResult() {
+    const percent = Math.round((correct / questions.length) * 100);
+    saveBestScore(topic, `write-term-${level}`, percent);
+    const emoji = percent >= 80 ? "🎉" : percent >= 50 ? "👍" : "📚";
+
+    app.innerHTML = `
+      <div class="screen">
+        <div class="app-shell">
+          <div class="panel">
+            <div class="result-screen">
+              <div class="result-emoji">${emoji}</div>
+              <p class="result-percent">${percent}%</p>
+              <p class="result-label">правильных ответов</p>
+              <div class="result-stats">
+                <div class="result-stat">
+                  <div class="result-stat-num">${correct}</div>
+                  <div class="result-stat-lbl">верно</div>
+                </div>
+                <div class="result-stat">
+                  <div class="result-stat-num">${questions.length - correct}</div>
+                  <div class="result-stat-lbl">ошибок</div>
+                </div>
+                <div class="result-stat">
+                  <div class="result-stat-num">${questions.length}</div>
+                  <div class="result-stat-lbl">всего</div>
+                </div>
+              </div>
+              <button class="next-btn" id="retryBtn">Пройти ещё раз</button>
+              <button class="next-btn" id="homeBtn" style="margin-top:10px;background:#e5e7eb;color:#111827;">В меню</button>
+            </div>
+          </div>
+        </div>
+      </div>`;
+
+    document.getElementById("retryBtn").addEventListener("click", () => runWriting(topic, level));
+    document.getElementById("homeBtn").addEventListener("click", goHome);
+  }
+
+  showQuestion();
+}
       function renderTrainer() {
+  if (state.trainerContext.type === "mode" && state.trainerContext.modeKey && state.currentTopic && trainingData[state.currentTopic]) {
+    runTrainer(state.currentTopic, state.trainerContext.modeKey);
+    return;
+  }
         let heading = "", text = "";
         if (state.trainerContext.type === "random-all") {
           heading = "Random по всем разделам";
