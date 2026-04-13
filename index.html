@@ -3031,7 +3031,7 @@ function runWriting(topic, level) {
         return renderTrainer();
       }
 
-      if (localStorage.getItem("welcomeSeen")) state.screen = "sections";
+      if (!savedState && localStorage.getItem("welcomeSeen")) state.screen = "sections";
       render();
     </script>
   </body>
