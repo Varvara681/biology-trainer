@@ -2215,7 +2215,31 @@
         return icons[name] || "🧬";
       }
 
-      function getProgress() { return ""; }
+     function getProgress(topic) {
+  if (!topic || !trainingData[topic]) return "";
+
+  const scores = [];
+
+  ["yes-no", "choice-4", "close-definitions"].forEach(m => {
+    const s = getBestScore(topic, m);
+    scores.push(s !== null ? Number(s) : 0);
+  });
+
+  const writingScores = ["A","B","C"]
+    .map(l => getBestScore(topic, `write-term-${l}`))
+    .filter(s => s !== null)
+    .map(Number);
+  scores.push(writingScores.length > 0 ? Math.max(...writingScores) : 0);
+
+  const attempted = scores.filter(s => s > 0).length;
+  if (attempted === 0) return "";
+
+  const avg = Math.round(scores.reduce((a, b) => a + b, 0) / scores.length);
+  const color = avg >= 80 ? "#10b981" : avg >= 50 ? "#f59e0b" : "#8b5cf6";
+  const bg    = avg >= 80 ? "#d1fae5" : avg >= 50 ? "#fef3c7" : "#ede9fe";
+
+  return `<span style="font-size:12px;font-weight:700;color:${color};background:${bg};padding:3px 8px;border-radius:8px;white-space:nowrap;">${avg}%</span>`;
+}
 
       /* ══════════════════════════════════════════════════════
          НАВИГАЦИЯ
