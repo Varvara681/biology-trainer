@@ -2563,8 +2563,8 @@
             </div>
           </div>
           <div class="breadcrumbs">
-            ${state.currentSection ? `${state.currentSection} → ` : ""}${state.currentTopic}
-          </div>
+  ${state.currentSection ? state.currentSection : ""}${state.currentParentTopic ? " → " + state.currentParentTopic : ""}
+</div>
           <div class="grid">
             ${trainingModes.map(m => {
               let best = null;
