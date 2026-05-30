@@ -2513,7 +2513,7 @@
                   </div>
                 </div>
 
-                <div class="breadcrumbs">Раздел: ${state.currentSection}</div>
+                ${state.currentTopic ? `<div class="breadcrumbs">Раздел: ${state.currentSection}</div>` : ""}
 
                 <div class="grid">
                   ${subtopics.map(s => `
